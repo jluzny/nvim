@@ -11,6 +11,7 @@ return {
   -- disable plugins
   -- { "folke/neoconf.vim", enabled = false },
 
+  -- set colorscheme
   {
     "catppuccin/nvim",
     name = "catppuccin",
