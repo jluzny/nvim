@@ -8,10 +8,6 @@ return {
   { import = "lazyvim.plugins.extras.lang.python-semshi" },
   { import = "lazyvim.plugins.extras.lang.yaml" },
 
-  -- disable plugins
-  -- { "folke/neoconf.vim", enabled = false },
-
-  -- set colorscheme
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -43,6 +39,12 @@ return {
 
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open({})
+        vim.cmd("Neotree close")
+      end
+
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close({})
+        vim.cmd("Neotree show")
       end
     end,
   },

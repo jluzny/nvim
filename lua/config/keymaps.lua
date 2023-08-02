@@ -19,7 +19,8 @@ end, { desc = "Replace in files (Spectre)" })
 -- end, { desc = "Format code" })
 
 -- Debug keymapping
-vim.keymap.set("n", "<F5>", require("dap").run_last)
+vim.keymap.set("n", "<C-S-F5>", require("dap").run_last)
+vim.keymap.set("n", "<F5>", require("dap").continue)
 vim.keymap.set("n", "<S-F5>", require("dap").terminate)
 vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
 vim.keymap.set("n", "<F10>", require("dap").step_over)
