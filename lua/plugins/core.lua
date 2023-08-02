@@ -2,10 +2,8 @@ return {
   -- eneble plugins and extras
   { import = "lazyvim.plugins.extras.dap.core" },
   { import = "lazyvim.plugins.extras.util.project" },
-  { import = "lazyvim.plugins.extras.coding.copilot" },
+  -- { import = "lazyvim.plugins.extras.coding.copilot" },
   { import = "lazyvim.plugins.extras.ui.mini-animate" },
-  { import = "lazyvim.plugins.extras.lang.python" },
-  { import = "lazyvim.plugins.extras.lang.python-semshi" },
   { import = "lazyvim.plugins.extras.lang.yaml" },
 
   {
@@ -29,7 +27,7 @@ return {
       colorscheme = "catppuccin-mocha",
     },
   },
-  --
+
   {
     "rcarriga/nvim-dap-ui",
     config = function(_, opts)
@@ -46,6 +44,15 @@ return {
         dapui.close({})
         vim.cmd("Neotree show")
       end
+    end,
+  },
+
+  {
+    "Weissle/persistent-breakpoints.nvim",
+    config = function()
+      require("persistent-breakpoints").setup({
+        load_breakpoints_event = { "BufReadPost" },
+      })
     end,
   },
 }
