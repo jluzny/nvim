@@ -1,4 +1,6 @@
 return {
+  { import = "lazyvim.plugins.extras.lang.python-semshi" },
+
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
@@ -27,21 +29,22 @@ return {
     },
   },
 
-  --   "nvim-neotest/neotest",
-  --   optional = true,
-  --   dependencies = {
-  --     "nvim-neotest/neotest-python",
-  --   },
-  --   opts = {
-  --     adapters = {
-  --       ["neotest-python"] = {
-  --         -- Here you can specify the settings for the adapter, i.e.
-  --         -- runner = "pytest",
-  --         -- python = ".venv/bin/python",
-  --       },
-  --     },
-  --   },
-  -- },
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "nvim-neotest/neotest-python",
+    },
+    opts = {
+      adapters = {
+        ["neotest-python"] = {
+          -- Here you can specify the settings for the adapter, i.e.
+          -- runner = "pytest",
+          -- python = ".venv/bin/python",
+        },
+      },
+    },
+  },
 
   {
     "mfussenegger/nvim-dap",
@@ -85,25 +88,11 @@ return {
         -- nls.builtins.diagnostics.ruff.with({
         --   args = { "--ignore", "E501" },
         -- }),
-        nls.builtins.formatting.black,
+        -- nls.builtins.formatting.black,
         nls.builtins.formatting.black.with({
           extra_args = { "--line-length", "120" },
         }),
       })
-    end,
-  },
-
-  {
-    -- "numiras/semshi",
-    "wookayin/semshi", -- use a maintained fork
-    ft = "python",
-    build = ":UpdateRemotePlugins",
-    init = function()
-      -- Disabled these features better provided by LSP or other more general plugins
-      vim.g["semshi#error_sign"] = false
-      vim.g["semshi#simplify_markup"] = false
-      vim.g["semshi#mark_selected_nodes"] = false
-      vim.g["semshi#update_delay_factor"] = 0.001
     end,
   },
 }

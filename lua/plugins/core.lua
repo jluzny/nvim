@@ -2,7 +2,7 @@ return {
   -- eneble plugins and extras
   { import = "lazyvim.plugins.extras.dap.core" },
   { import = "lazyvim.plugins.extras.util.project" },
-  -- { import = "lazyvim.plugins.extras.coding.copilot" },
+  { import = "lazyvim.plugins.extras.coding.copilot" },
   { import = "lazyvim.plugins.extras.ui.mini-animate" },
   { import = "lazyvim.plugins.extras.lang.yaml" },
 
@@ -33,6 +33,26 @@ return {
     config = function(_, opts)
       local dap = require("dap")
       local dapui = require("dapui")
+      -- stylua: ignore
+      opts = {
+        layouts = { {
+            elements = {
+              { id = "scopes", size = 0.75, },
+              -- { id = "breakpoints", size = 0.25, },
+              -- { id = "stacks", size = 0.25, },
+              { id = "watches", size = 0.25, },
+            },
+            position = "left", size = 40,
+          },
+          {
+            elements = {
+              -- { id = "repl", size = 0.5, },
+              { id = "console", size = 1, },
+            },
+            position = "bottom", size = 10,
+          },
+        },
+      }
       dapui.setup(opts)
 
       dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -56,4 +76,46 @@ return {
       })
     end,
   },
+
+  {
+    "Djancyp/cheat-sheet",
+    event = "VeryLazy",
+  },
+
+  -- {
+  --   "jackMort/ChatGPT.nvim",
+  --   -- event = "VeryLazy",
+  --   config = function()
+  --     require("chatgpt").setup({})
+  --   end,
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --   },
+  -- },
+
+  -- {
+  --   "Exafunction/codeium.vim",
+  --   event = "InsertEnter",
+  --   -- stylua: ignore
+  --   config = function ()
+  --     vim.g.codeium_disable_bindings = 1
+  --     vim.keymap.set("i", "<A-m>", function() return vim.fn["codeium#Accept"]() end, { expr = true })
+  --     vim.keymap.set("i", "<A-f>", function() return vim.fn["codeium#CycleCompletions"](1) end, { expr = true })
+  --     vim.keymap.set("i", "<A-b>", function() return vim.fn["codeium#CycleCompletions"](-1) end, { expr = true })
+  --     vim.keymap.set("i", "<A-x>", function() return vim.fn["codeium#Clear"]() end, { expr = true })
+  --     vim.keymap.set("i", "<A-s>", function() return vim.fn["codeium#Complete"]() end, { expr = true })
+  --   end,
+  -- },
+  --
+  --
+  -- {
+  --   "jcdickinson/codeium.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "hrsh7th/nvim-cmp",
+  --   },
+  --   config = function()
+  --     require("codeium").setup({})
+  --   end,
+  -- },
 }

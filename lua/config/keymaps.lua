@@ -19,11 +19,15 @@ end, { desc = "Replace in files (Spectre)" })
 -- end, { desc = "Format code" })
 
 -- Debug keymapping
-vim.keymap.set("n", "<C-S-F5>", require("dap").run_last)
+-- vim.keymap.set("n", "<C-S-F5>", require("dap").run_last)
 vim.keymap.set("n", "<F5>", require("dap").continue)
-vim.keymap.set("n", "<S-F5>", require("dap").terminate)
+-- vim.keymap.set("n", "<S-F5>", require("dap").terminate)
 -- vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
 vim.keymap.set("n", "<F9>", require("persistent-breakpoints.api").toggle_breakpoint)
 vim.keymap.set("n", "<F10>", require("dap").step_over)
 vim.keymap.set("n", "<F11>", require("dap").step_into)
 vim.keymap.set("n", "<F12>", require("dap").step_out)
+
+-- ChatGPT
+-- vim.keymap.set("n", "<C-CR>", require("chatgpt").complete_code)
+-- vim.keymap.set("i", "<C-CR>", "<Esc>:ChatGPTCompleteCode<CR>")
