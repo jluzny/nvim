@@ -7,6 +7,47 @@ return {
   { import = "lazyvim.plugins.extras.lang.yaml" },
 
   {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        always_show_bufferline = true,
+      },
+    },
+  },
+
+  {
+    "folke/twilight.nvim",
+    event = "VeryLazy",
+    config = function(_, opts)
+      opts = {
+        dimming = {
+          alpha = 1, -- amount of dimming
+        },
+        context = 66,
+        treesitter = true, -- use treesitter when available for the filetype
+        expand = {
+          "while_statement",
+          "if_statement",
+          "for_statement",
+          "function",
+          "function_definition",
+          "method_definition",
+          "method",
+          "table",
+          "if_statement",
+          "paragraph",
+          "fenced_code_block",
+          "list",
+          "document",
+        },
+        exclude = {}, -- exclude these filetypes
+      }
+      require("twilight").setup(opts)
+      vim.cmd("TwilightEnable")
+    end,
+  },
+
+  {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,

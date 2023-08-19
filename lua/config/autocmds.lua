@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd("BufNew", {
 --   end,
 -- })
 
-vim.api.nvim_create_autocmd("BufReadPre", {
+vim.api.nvim_create_autocmd("BufReadPost", {
   desc = "Open neo-tree on enter",
   callback = function()
     if not vim.g.neotree_opened then
