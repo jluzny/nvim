@@ -32,12 +32,31 @@ vim.api.nvim_create_autocmd("BufNew", {
 --   end,
 -- })
 
-vim.api.nvim_create_autocmd("BufReadPost", {
-  desc = "Open neo-tree on enter",
+-- vim.api.nvim_create_autocmd("BufReadPre", {
+--   desc = "Open neo-tree on enter",
+--   callback = function()
+--     if not vim.g.neotree_opened then
+--       vim.cmd("Neotree float")
+--       vim.g.neotree_opened = true
+--     end
+--   end,
+-- })
+
+-- vim.api.nvim_create_autocmd("BufNew", {
+--   desc = "Open DAP UI on enter",
+--   pattern = "*.py,*.ts,*.js",
+--   callback = function()
+--     if not vim.g.dapui_opened then
+--       require("dapui").open({})
+--       vim.g.dapui_opened = true
+--     end
+--   end,
+-- })
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  desc = "Run TSC on save",
+  pattern = "*.ts",
   callback = function()
-    if not vim.g.neotree_opened then
-      vim.cmd("Neotree show")
-      vim.g.neotree_opened = true
-    end
+    vim.cmd("TSC")
   end,
 })

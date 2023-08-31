@@ -9,7 +9,7 @@ for _, mode in pairs({ "n", "v", "x" }) do
 end
 
 vim.keymap.set({ "n", "i" }, "<C-Tab>", function()
-  require("telescope.builtin").oldfiles()
+  require("telescope.builtin").oldfiles({ cwd_only = true })
 end, { desc = "Find Recent files" })
 
 vim.keymap.set({ "n", "i" }, "<C-S-D>", vim.diagnostic.open_float, { desc = "Line Diagnostics" })

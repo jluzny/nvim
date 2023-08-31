@@ -70,41 +70,60 @@ return {
   },
 
   {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      filesystem = {
+        filtered_items = {
+          visible = true,
+          hide_dotfiles = true,
+          hide_gitignored = true,
+        },
+      },
+      window = {
+        position = "float",
+      },
+    },
+  },
+
+  {
     "rcarriga/nvim-dap-ui",
     config = function(_, opts)
       local dap = require("dap")
       local dapui = require("dapui")
       -- stylua: ignore
       opts = {
-        layouts = { {
-            elements = {
-              { id = "scopes", size = 0.75, },
-              -- { id = "breakpoints", size = 0.25, },
-              -- { id = "stacks", size = 0.25, },
-              { id = "watches", size = 0.25, },
-            },
-            position = "left", size = 40,
-          },
+        layouts = { 
+          -- {
+        --     elements = {
+        --       { id = "scopes", size = 0.75, },
+        --       -- { id = "breakpoints", size = 0.25, },
+        --       -- { id = "stacks", size = 0.25, },
+        --       { id = "watches", size = 0.25, },
+        --     },
+        --     position = "left", size = 40,
+        --   },
           {
             elements = {
-              -- { id = "repl", size = 0.5, },
-              { id = "console", size = 1, },
+              { id = "watches", size = 0.25, },
+              { id = "repl", size = 0.75, },
+              -- { id = "console", size = 0.5, },
             },
-            position = "bottom", size = 10,
+            position = "bottom", size = 14,
           },
         },
       }
       dapui.setup(opts)
 
+      -- toggle windows after debug
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open({})
-        vim.cmd("Neotree close")
+        -- vim.cmd("Neotree close")
       end
-
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close({})
-        vim.cmd("Neotree show")
-      end
+      --
+      -- dap.listeners.before.event_terminated["dapui_config"] = function()
+      --   dapui.close({})
+      --   vim.cmd("Neotree show")
+      -- end
     end,
   },
 

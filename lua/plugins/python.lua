@@ -1,5 +1,5 @@
 return {
-  { import = "lazyvim.plugins.extras.lang.python-semshi" },
+  -- { import = "lazyvim.plugins.extras.lang.python-semshi" },
 
   {
     "nvim-treesitter/nvim-treesitter",
