@@ -11,3 +11,6 @@ local opt = vim.opt
 -- opt.foldenable = true
 
 opt.clipboard = ""
+opt.wrap = true
+opt.linebreak = true
+opt.showbreak = "↪ "

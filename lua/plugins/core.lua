@@ -1,13 +1,22 @@
+if vim.g.vscode then
+  return {
+    { import = "lazyvim.plugins.extras.vscode" },
+  }
+end
+
 return {
   -- eneble plugins and extras
+  { import = "lazyvim.plugins.extras.lsp.none-ls" },
   { import = "lazyvim.plugins.extras.dap.core" },
   { import = "lazyvim.plugins.extras.util.project" },
   { import = "lazyvim.plugins.extras.coding.copilot" },
   { import = "lazyvim.plugins.extras.ui.mini-animate" },
   { import = "lazyvim.plugins.extras.lang.yaml" },
+  { import = "lazyvim.plugins.extras.test.core" },
 
   {
     "akinsho/bufferline.nvim",
+    event = "VeryLazy",
     opts = {
       options = {
         always_show_bufferline = true,
@@ -16,36 +25,45 @@ return {
   },
 
   {
-    "folke/twilight.nvim",
-    event = "VeryLazy",
-    config = function(_, opts)
-      opts = {
-        dimming = {
-          alpha = 1, -- amount of dimming
-        },
-        context = 66,
-        treesitter = true, -- use treesitter when available for the filetype
-        expand = {
-          "while_statement",
-          "if_statement",
-          "for_statement",
-          "function",
-          "function_definition",
-          "method_definition",
-          "method",
-          "table",
-          "if_statement",
-          "paragraph",
-          "fenced_code_block",
-          "list",
-          "document",
-        },
-        exclude = {}, -- exclude these filetypes
-      }
-      require("twilight").setup(opts)
-      vim.cmd("TwilightEnable")
-    end,
+    "folke/which-key.nvim",
+    opts = {
+      defaults = {
+        ["<leader>r"] = { name = "+run" },
+      },
+    },
   },
+
+  -- {
+  --   "folke/twilight.nvim",
+  --   event = "VeryLazy",
+  --   config = function(_, opts)
+  --     opts = {
+  --       dimming = {
+  --         alpha = 1, -- amount of dimming
+  --       },
+  --       context = 66,
+  --       treesitter = true, -- use treesitter when available for the filetype
+  --       expand = {
+  --         "while_statement",
+  --         "if_statement",
+  --         "for_statement",
+  --         "function",
+  --         "function_definition",
+  --         "method_definition",
+  --         "method",
+  --         "table",
+  --         "if_statement",
+  --         "paragraph",
+  --         "fenced_code_block",
+  --         "list",
+  --         "document",
+  --       },
+  --       exclude = {}, -- exclude these filetypes
+  --     }
+  --     require("twilight").setup(opts)
+  --     vim.cmd("TwilightEnable")
+  --   end,
+  -- },
 
   {
     "catppuccin/nvim",
@@ -71,6 +89,22 @@ return {
 
   {
     "nvim-neo-tree/neo-tree.nvim",
+    keys = {
+      {
+        "<leader>fe",
+        function()
+          require("neo-tree.command").execute({ reveal = true, dir = require("lazyvim.util").root.get() })
+        end,
+        desc = "Explorer NeoTree (root dir)",
+      },
+      {
+        "<leader>fE",
+        function()
+          require("neo-tree.command").execute({ reveal = true, dir = vim.loop.cwd() })
+        end,
+        desc = "Explorer NeoTree (cwd)",
+      },
+    },
     opts = {
       filesystem = {
         filtered_items = {
@@ -85,6 +119,31 @@ return {
     },
   },
 
+  -- debug support
+  {
+    "Weissle/persistent-breakpoints.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("persistent-breakpoints").setup({
+        load_breakpoints_event = { "BufReadPost" },
+      })
+
+      -- Debug keymapping
+      -- stylua: ignore
+      vim.keymap.set("n", "<F5>", require("dap").continue)
+      vim.keymap.set("n", "<F6>", require("dap").run_last)
+      -- vim.keymap.set("n", "<F7>", function()
+      -- return vim.lsp.codelens.run()
+      -- end)
+      vim.keymap.set("n", "<S-F5>", require("dap").terminate)
+      -- vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
+      vim.keymap.set("n", "<F9>", require("persistent-breakpoints.api").toggle_breakpoint)
+      vim.keymap.set("n", "<F10>", require("dap").step_over)
+      vim.keymap.set("n", "<F11>", require("dap").step_into)
+      vim.keymap.set("n", "<F12>", require("dap").step_out)
+    end,
+  },
+
   {
     "rcarriga/nvim-dap-ui",
     config = function(_, opts)
@@ -92,23 +151,24 @@ return {
       local dapui = require("dapui")
       -- stylua: ignore
       opts = {
-        layouts = { 
+        layouts = {
           -- {
-        --     elements = {
-        --       { id = "scopes", size = 0.75, },
-        --       -- { id = "breakpoints", size = 0.25, },
-        --       -- { id = "stacks", size = 0.25, },
-        --       { id = "watches", size = 0.25, },
-        --     },
-        --     position = "left", size = 40,
-        --   },
+          --   elements = {
+          --     { id = "scopes", size = 0.7, },
+          --   --   -- { id = "breakpoints", size = 0.25, },
+          --   --   -- { id = "stacks", size = 0.25, },
+          --   --   { id = "watches", size = 0.1, },
+          --     { id = "repl", size = 0.3, },
+          --   },
+          --   position = "right", size = 33,
+          -- },
           {
             elements = {
-              { id = "watches", size = 0.25, },
+              -- { id = "console", size = 1, },
               { id = "repl", size = 0.75, },
-              -- { id = "console", size = 0.5, },
+              { id = "scopes", size = 0.25, },
             },
-            position = "bottom", size = 14,
+            position = "bottom", size = 17,
           },
         },
       }
@@ -124,23 +184,28 @@ return {
       --   dapui.close({})
       --   vim.cmd("Neotree show")
       -- end
+
+      -- dap.defaults.fallback.external_terminal = {
+      --   command = "/usr/bin/alacritty",
+      --   args = { "-e" },
+      -- }
+      -- dap.defaults.fallback.force_external_terminal = true
     end,
   },
 
+  -- AI
   {
-    "Weissle/persistent-breakpoints.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("persistent-breakpoints").setup({
-        load_breakpoints_event = { "BufReadPost" },
-      })
-    end,
+    "zbirenbaum/copilot.lua",
+    opts = {
+      suggestion = { enabled = true },
+      panel = { enabled = true },
+    },
   },
 
-  {
-    "Djancyp/cheat-sheet",
-    event = "VeryLazy",
-  },
+  -- {
+  --   "Djancyp/cheat-sheet",
+  --   event = "VeryLazy",
+  -- },
 
   -- {
   --   "jackMort/ChatGPT.nvim",

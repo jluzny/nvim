@@ -1,3 +1,7 @@
+if vim.g.vscode then
+  return {}
+end
+
 return {
   -- { import = "lazyvim.plugins.extras.lang.python-semshi" },
 
@@ -79,21 +83,21 @@ return {
   },
 
   -- Setup null-ls with `black`
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    opts = function(_, opts)
-      local nls = require("null-ls")
-      opts.sources = vim.list_extend(opts.sources, {
-        -- Order of formatters matters. They are used in order of appearance.
-        -- nls.builtins.diagnostics.ruff,
-        -- nls.builtins.diagnostics.ruff.with({
-        --   args = { "--ignore", "E501" },
-        -- }),
-        -- nls.builtins.formatting.black,
-        nls.builtins.formatting.black.with({
-          extra_args = { "--line-length", "120" },
-        }),
-      })
-    end,
-  },
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   opts = function(_, opts)
+  --     local nls = require("none-ls")
+  --     opts.sources = vim.list_extend(opts.sources, {
+  --       -- Order of formatters matters. They are used in order of appearance.
+  --       -- nls.builtins.diagnostics.ruff,
+  --       -- nls.builtins.diagnostics.ruff.with({
+  --       --   args = { "--ignore", "E501" },
+  --       -- }),
+  --       -- nls.builtins.formatting.black,
+  --       nls.builtins.formatting.black.with({
+  --         extra_args = { "--line-length", "120" },
+  --       }),
+  --     })
+  --   end,
+  -- },
 }
