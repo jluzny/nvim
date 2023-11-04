@@ -10,7 +10,8 @@ local opt = vim.opt
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- opt.foldenable = true
 
-opt.clipboard = ""
+--enable/diasble auto paste to/from system clipboard
+opt.clipboard = "unnamedplus"
 opt.wrap = true
 opt.linebreak = true
 opt.showbreak = "↪ "

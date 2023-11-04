@@ -13,9 +13,16 @@ if not vim.g.vscode then
     require("telescope.builtin").oldfiles({ cwd_only = true })
   end, { desc = "Find Recent files" })
 
+  vim.keymap.set({ "n", "v" }, "d", '"_d', { desc = "Delete without copying to system clipboard", remap = false })
+  vim.keymap.set({ "n", "v" }, "D", '"_D', { desc = "Delete without copying to system clipboard", remap = false })
+  vim.keymap.set({ "n", "v" }, "c", '"_c', { desc = "Cut without copying to system clipboard", remap = false })
+  vim.keymap.set({ "n", "v" }, "C", '"_C', { desc = "Cut without copying to system clipboard", remap = false })
+  vim.keymap.set({ "n", "v" }, "x", '"_x', { desc = "Erase without copying to system clipboard", remap = false })
+  vim.keymap.set({ "n", "v" }, "<C-S-C>", '"+y', { desc = "Copy to system clipboard", remap = true })
+
   vim.keymap.set({ "n", "i" }, "<C-S-P>", "<leader>sc", { desc = "Command history", remap = true })
 
-  vim.keymap.set({ "n", "i" }, "<Esc><Esc>", "<cmd>close<cr>", { desc = "Close window", remap = true })
+  vim.keymap.set({ "n", "i" }, "<C-C>", "<cmd>close<cr>", { desc = "Close window", remap = true })
   vim.keymap.set({ "n", "i" }, "<Tab>", "<cmd>wincmd w<cr>", { desc = "Switch window", remap = true })
   vim.keymap.set({ "n", "i" }, "<S-Tab>", "<cmd>wincmd W<cr>", { desc = "Switch window back", remap = true })
   -- vim.keymap.set({ "n", "i" }, "<C-Q>", "<cmd>close<cr>", { desc = "Close window", remap = true })

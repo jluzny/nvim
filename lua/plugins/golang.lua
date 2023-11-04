@@ -24,7 +24,7 @@ return {
         },
       })
       -- setup keymaps
-      vim.keymap.set("n", "<F7>", "<cmd>:write<cr><cmd>:GoRun<cr><cmd>:$<cr>") -- <cmd>:wincmd k<cr>")
+      vim.keymap.set("n", "<F7>", "<cmd>:write<cr><cmd>:GoRun<cr>i") -- <cmd>:wincmd k<cr>")
     end,
   },
 }

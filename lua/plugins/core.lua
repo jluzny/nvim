@@ -135,7 +135,7 @@ return {
       -- vim.keymap.set("n", "<F7>", function()
       -- return vim.lsp.codelens.run()
       -- end)
-      vim.keymap.set("n", "<S-F5>", require("dap").terminate)
+      vim.keymap.set("n", "<F4>", require("dap").terminate)
       -- vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
       vim.keymap.set("n", "<F9>", require("persistent-breakpoints.api").toggle_breakpoint)
       vim.keymap.set("n", "<F10>", require("dap").step_over)
@@ -165,8 +165,8 @@ return {
           {
             elements = {
               -- { id = "console", size = 1, },
-              { id = "repl", size = 0.75, },
-              { id = "scopes", size = 0.25, },
+              { id = "repl", size = 0.6, },
+              { id = "scopes", size = 0.4, },
             },
             position = "bottom", size = 17,
           },
