@@ -1,4 +1,4 @@
-if vim.g.vscode then
+if true or vim.g.vscode then
   return {}
 end
 
@@ -24,7 +24,6 @@ return {
 
   {
     "mfussenegger/nvim-dap",
-    optional = true,
     dependencies = {
       {
         "williamboman/mason.nvim",

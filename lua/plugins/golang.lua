@@ -1,3 +1,7 @@
+if vim.g.vscode then
+  return {}
+end
+
 return {
   { import = "lazyvim.plugins.extras.lang.go" },
 
@@ -24,7 +28,7 @@ return {
         },
       })
       -- setup keymaps
-      vim.keymap.set("n", "<F7>", "<cmd>:write<cr><cmd>:GoRun<cr>i") -- <cmd>:wincmd k<cr>")
+      -- vim.keymap.set("n", "<F8>", "<cmd>:write<cr><cmd>:GoRun<cr>i") -- <cmd>:wincmd k<cr>")
     end,
   },
 }

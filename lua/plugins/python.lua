@@ -1,4 +1,4 @@
-if vim.g.vscode then
+if true or vim.g.vscode then
   return {}
 end
 
@@ -36,7 +36,6 @@ return {
 
   {
     "nvim-neotest/neotest",
-    optional = true,
     dependencies = {
       "nvim-neotest/neotest-python",
     },
@@ -53,7 +52,6 @@ return {
 
   {
     "mfussenegger/nvim-dap",
-    optional = true,
     dependencies = {
       "mfussenegger/nvim-dap-python",
       -- stylua: ignore
@@ -70,6 +68,7 @@ return {
 
   {
     "linux-cultist/venv-selector.nvim",
+    event = "VeryLazy",
     dependencies = {
       "mfussenegger/nvim-dap-python",
     },
@@ -79,7 +78,6 @@ return {
       dap_enabled = true,
       name = { "venv", ".venv" },
     },
-    event = "VeryLazy",
   },
 
   -- Setup null-ls with `black`

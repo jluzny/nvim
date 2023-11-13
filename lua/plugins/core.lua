@@ -9,9 +9,7 @@ return {
   { import = "lazyvim.plugins.extras.lsp.none-ls" },
   { import = "lazyvim.plugins.extras.dap.core" },
   { import = "lazyvim.plugins.extras.util.project" },
-  { import = "lazyvim.plugins.extras.coding.copilot" },
   { import = "lazyvim.plugins.extras.ui.mini-animate" },
-  { import = "lazyvim.plugins.extras.lang.yaml" },
   { import = "lazyvim.plugins.extras.test.core" },
 
   {
@@ -130,12 +128,11 @@ return {
 
       -- Debug keymapping
       -- stylua: ignore
+      vim.keymap.set("n", "<F4>", require("dap").terminate)
       vim.keymap.set("n", "<F5>", require("dap").continue)
       vim.keymap.set("n", "<F6>", require("dap").run_last)
-      -- vim.keymap.set("n", "<F7>", function()
-      -- return vim.lsp.codelens.run()
-      -- end)
-      vim.keymap.set("n", "<F4>", require("dap").terminate)
+      -- vim.keymap.set("n", "<F7>", require("neotest").run.run_last)
+      vim.keymap.set("n", "<F8>", require("neotest").run.run)
       -- vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
       vim.keymap.set("n", "<F9>", require("persistent-breakpoints.api").toggle_breakpoint)
       vim.keymap.set("n", "<F10>", require("dap").step_over)
@@ -165,8 +162,8 @@ return {
           {
             elements = {
               -- { id = "console", size = 1, },
-              { id = "repl", size = 0.6, },
-              { id = "scopes", size = 0.4, },
+              { id = "repl", size = 0.5, },
+              { id = "scopes", size = 0.5, },
             },
             position = "bottom", size = 17,
           },
@@ -179,11 +176,11 @@ return {
         dapui.open({})
         -- vim.cmd("Neotree close")
       end
-      --
-      -- dap.listeners.before.event_terminated["dapui_config"] = function()
-      --   dapui.close({})
-      --   vim.cmd("Neotree show")
-      -- end
+
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close({})
+        -- vim.cmd("Neotree show")
+      end
 
       -- dap.defaults.fallback.external_terminal = {
       --   command = "/usr/bin/alacritty",
@@ -194,6 +191,8 @@ return {
   },
 
   -- AI
+
+  { import = "lazyvim.plugins.extras.coding.copilot" },
   {
     "zbirenbaum/copilot.lua",
     opts = {

@@ -1,4 +1,4 @@
-if vim.g.vscode then
+if true or vim.g.vscode then
   return {}
 end
 
@@ -6,6 +6,7 @@ return {
   -- add treesitter support for scala
   {
     "nvim-treesitter/nvim-treesitter",
+    event = "VeryLazy",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, { "scala", "java" })
     end,
@@ -48,6 +49,7 @@ return {
   {
     "scalameta/nvim-metals",
     dependencies = { "nvim-lua/plenary.nvim", "mfussenegger/nvim-dap" },
+    event = "BufEnter *.worksheet.sc",
     ft = { "scala", "sbt" },
     keys = {
       {
@@ -65,7 +67,6 @@ return {
         desc = "Telescope Metals Commands",
       },
     },
-    event = "BufEnter *.worksheet.sc",
 
     config = function()
       local metals_config = require("metals").bare_config()
