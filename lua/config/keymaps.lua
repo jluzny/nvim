@@ -23,9 +23,10 @@ if not vim.g.vscode then
   vim.keymap.set({ "n", "i" }, "<C-S-P>", "<leader>sc", { desc = "Command history", remap = true })
   vim.keymap.set({ "n" }, "<F7>", "@:", { desc = "Rerun last command", remap = true, silent = true })
 
-  vim.keymap.set("n", "<c-i>", "<c-i>")
-  vim.keymap.set({ "n" }, "<Tab>", "<cmd>wincmd w<cr>", { desc = "Switch window", remap = true })
-  vim.keymap.set({ "n" }, "<S-Tab>", "<cmd>wincmd W<cr>", { desc = "Switch window back", remap = true })
+  vim.keymap.set({ "n" }, "<Tab>", "<cmd>wincmd w<cr>", { desc = "Switch window", remap = false })
+  vim.keymap.set({ "n" }, "<S-Tab>", "<cmd>wincmd W<cr>", { desc = "Switch window back", remap = false })
+  vim.keymap.set({ "n" }, "<C-P>", "<C-O>", { desc = "Next change" })
+  vim.keymap.set({ "n" }, "<C-N>", "<C-I>", { desc = "Previous change" })
   vim.keymap.set({ "n" }, "<C-S-Q>", "<leader>bd", { desc = "Delete bufer", remap = true })
 
   vim.keymap.set({ "n", "i" }, "<C-S-D>", vim.diagnostic.open_float, { desc = "Line diagnostics" })
