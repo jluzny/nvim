@@ -31,38 +31,6 @@ return {
     },
   },
 
-  -- {
-  --   "folke/twilight.nvim",
-  --   event = "VeryLazy",
-  --   config = function(_, opts)
-  --     opts = {
-  --       dimming = {
-  --         alpha = 1, -- amount of dimming
-  --       },
-  --       context = 66,
-  --       treesitter = true, -- use treesitter when available for the filetype
-  --       expand = {
-  --         "while_statement",
-  --         "if_statement",
-  --         "for_statement",
-  --         "function",
-  --         "function_definition",
-  --         "method_definition",
-  --         "method",
-  --         "table",
-  --         "if_statement",
-  --         "paragraph",
-  --         "fenced_code_block",
-  --         "list",
-  --         "document",
-  --       },
-  --       exclude = {}, -- exclude these filetypes
-  --     }
-  --     require("twilight").setup(opts)
-  --     vim.cmd("TwilightEnable")
-  --   end,
-  -- },
-
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -85,6 +53,8 @@ return {
     },
   },
 
+  { "echasnovski/mini.pairs", enabled = false },
+
   {
     "nvim-neo-tree/neo-tree.nvim",
     keys = {
@@ -94,13 +64,6 @@ return {
           require("neo-tree.command").execute({ reveal = true, dir = require("lazyvim.util").root.get() })
         end,
         desc = "Explorer NeoTree (root dir)",
-      },
-      {
-        "<leader>fE",
-        function()
-          require("neo-tree.command").execute({ reveal = true, dir = vim.loop.cwd() })
-        end,
-        desc = "Explorer NeoTree (cwd)",
       },
     },
     opts = {
@@ -117,6 +80,15 @@ return {
     },
   },
 
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      inlay_hints = {
+        enabled = true,
+      },
+    },
+  },
+
   -- debug support
   {
     "Weissle/persistent-breakpoints.nvim",
@@ -128,13 +100,15 @@ return {
 
       -- Debug keymapping
       -- stylua: ignore
+      vim.keymap.set({"n","v"}, "<F3>", require("dapui").eval)
       vim.keymap.set("n", "<F4>", require("dap").terminate)
       vim.keymap.set("n", "<F5>", require("dap").continue)
       vim.keymap.set("n", "<F6>", require("dap").run_last)
-      -- vim.keymap.set("n", "<F7>", require("neotest").run.run_last)
-      vim.keymap.set("n", "<F8>", require("neotest").watch.watch)
+      -- vim.keymap.set("n", "<F8>", require("neotest").run.run_last)
+      -- vim.keymap.set("n", "<F8>", require("neotest").watch.watch)
       -- vim.keymap.set("n", "<F8>", require("neotest").run.run)
       -- vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
+      -- vim.keymap.set("n", "<F8>", require("neotest").watch.watch)
       vim.keymap.set("n", "<F9>", require("persistent-breakpoints.api").toggle_breakpoint)
       vim.keymap.set("n", "<F10>", require("dap").step_over)
       vim.keymap.set("n", "<F11>", require("dap").step_into)
@@ -162,11 +136,11 @@ return {
           -- },
           {
             elements = {
-              -- { id = "console", size = 1, },
-              { id = "repl", size = 0.5, },
-              { id = "scopes", size = 0.5, },
+              { id = "console", size = 0.5, },
+              { id = "scopes", size = 0.39, },
+              { id = "repl", size = 0.11, },
             },
-            position = "bottom", size = 17,
+            position = "bottom", size = 13,
           },
         },
       }
@@ -179,7 +153,7 @@ return {
       end
 
       dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close({})
+        -- dapui.close({})
         -- vim.cmd("Neotree show")
       end
 
@@ -194,13 +168,6 @@ return {
   -- AI
 
   { import = "lazyvim.plugins.extras.coding.copilot" },
-  {
-    "zbirenbaum/copilot.lua",
-    opts = {
-      suggestion = { enabled = true },
-      panel = { enabled = true },
-    },
-  },
 
   -- {
   --   "Djancyp/cheat-sheet",
