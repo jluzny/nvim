@@ -8,6 +8,9 @@ for _, mode in pairs({ "n", "v", "x" }) do
   end
 end
 
+vim.keymap.set({ "n", "v" }, "f", "w", { desc = "Add <f> as antoher key to move word forward", remap = true })
+vim.keymap.set({ "n", "v" }, "F", "W", { desc = "Add <F> as antoher key to move Word forward", remap = true })
+
 vim.keymap.set({ "n", "v" }, "d", '"_d', { desc = "Delete without copying to system clipboard", remap = false })
 vim.keymap.set({ "n", "v" }, "D", '"_D', { desc = "Delete without copying to system clipboard", remap = false })
 vim.keymap.set({ "n", "v" }, "c", '"_c', { desc = "Cut without copying to system clipboard", remap = false })
@@ -21,7 +24,7 @@ if not vim.g.vscode then
   end, { desc = "Find Recent files" })
 
   vim.keymap.set({ "n", "i" }, "<C-S-P>", "<leader>sc", { desc = "Command history", remap = true })
-  vim.keymap.set({ "n" }, "<F7>", "@:", { desc = "Rerun last command", remap = true, silent = true })
+  vim.keymap.set({ "n" }, "<F6>", "@:", { desc = "Rerun last command", remap = true, silent = true })
 
   vim.keymap.set({ "n" }, "<Tab>", "<cmd>wincmd w<cr>", { desc = "Switch window", remap = false })
   vim.keymap.set({ "n" }, "<S-Tab>", "<cmd>wincmd W<cr>", { desc = "Switch window back", remap = false })
