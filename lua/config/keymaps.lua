@@ -15,6 +15,7 @@ vim.keymap.set({ "n", "v" }, "d", '"_d', { desc = "Delete without copying to sys
 vim.keymap.set({ "n", "v" }, "D", '"_D', { desc = "Delete without copying to system clipboard", remap = false })
 vim.keymap.set({ "n", "v" }, "c", '"_c', { desc = "Cut without copying to system clipboard", remap = false })
 vim.keymap.set({ "n", "v" }, "C", '"_C', { desc = "Cut without copying to system clipboard", remap = false })
+vim.keymap.set({ "n", "v" }, "X", "Vx", { desc = "Cut whole line to clipboard", remap = false })
 vim.keymap.set({ "n", "v" }, "<C-S-C>", '"+y', { desc = "Copy to system clipboard", remap = true })
 vim.keymap.set({ "n" }, "<C-C>", "<cmd>close<cr>", { desc = "Close window", remap = true })
 

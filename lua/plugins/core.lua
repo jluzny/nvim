@@ -171,6 +171,13 @@ return {
   { import = "lazyvim.plugins.extras.coding.copilot" },
 
   -- {
+  --   "zbirenbaum/copilot.lua",
+  --   opts = {
+  --     suggestion = { enabled = falses, auto_trigger = false },
+  --   },
+  -- },
+
+  -- {
   --   "Djancyp/cheat-sheet",
   --   event = "VeryLazy",
   -- },
