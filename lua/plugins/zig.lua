@@ -29,6 +29,8 @@ return {
       },
     },
     config = function(_, opts)
+      vim.keymap.set({ "n", "i" }, "<C-S>", "<cmd>wa | make --summary all<cr>", { desc = "Save and make the file" })
+
       -- local zig_tools_opts = {
       --   expose_commands = true,
       --   --- Check for compilation-time errors
