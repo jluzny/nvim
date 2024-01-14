@@ -111,6 +111,47 @@ return {
   },
 
   {
+    "folke/trouble.nvim",
+    opts = {
+      height = 5,
+      auto_open = true,
+      auto_close = false,
+      auto_preview = true,
+      multiline = false,
+      indent_lines = false,
+      padding = false,
+    },
+    -- config = function(_, opts)
+    --   require("trouble").setup(opts)
+    --   local function use_trouble()
+    --     local trouble = require("trouble")
+    --     local qflist = vim.fn.getqflist({ title = 0, items = 0 })
+    --
+    --     -- if vim.fn.getloclist(0, { filewinid = 1 }).filewinid ~= 0 then
+    --     --   vim.defer_fn(function()
+    --     --     vim.cmd.lclose()
+    --     --     trouble.open("loclist")
+    --     --   end, 0)
+    --     -- else
+    --     --   vim.defer_fn(function()
+    --     --     vim.cmd.cclose()
+    --     --     trouble.open("quickfix")
+    --     --   end, 0)
+    --     -- end
+    --
+    --     -- if next(qflist.items) == nil then
+    --     --   vim.defer_fn(trouble.close, 0)
+    --     --   return
+    --     -- end
+    --   end
+    --
+    --   vim.api.nvim_create_autocmd("BufNew", {
+    --     callback = use_trouble,
+    --   })
+    -- end,
+  },
+
+  {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = {
@@ -171,7 +212,7 @@ return {
               { id = "scopes", size = 0.39, },
               { id = "repl", size = 0.11, },
             },
-            position = "bottom", size = 13,
+            position = "bottom", size = 10,
           },
         },
       }
