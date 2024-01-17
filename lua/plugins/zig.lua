@@ -13,7 +13,7 @@ return {
       { [[<C-\>]] },
       {
         "<leader>td",
-        "<cmd>ToggleTerm size=40 dir=~/Desktop direction=horizontal<cr>",
+        "<cmd>ToggleTerm size=30 direction=horizontal<cr>",
         desc = "Open a horizontal terminal at the Desktop directory",
       },
     },

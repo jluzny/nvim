@@ -3,44 +3,46 @@
 -- Add any additional autocmds here
 
 if not vim.g.vscode then
-  vim.api.nvim_create_autocmd("ShellCmdPost", {
-    desc = "Replace quick/local lists with trouble.nvim",
-    callback = function()
-      vim.defer_fn(function()
-        local qflist = vim.fn.getqflist({ title = 0, items = 0 })
-        local trouble = require("trouble")
-        if next(qflist.items) == nil then
-          local loclist = vim.fn.getloclist(0)
-          -- if loclist == nil and loclist.items == nil then
-          -- if trouble.is_open() then
-          -- trouble.toggle("workspace_diagnostics")
-          vim.notify("All right :-)", vim.log.levels.INFO, { title = "Shell Cmd Post" })
-          trouble.open("workspace_diagnostics")
-          vim.cmd("wincmd p")
-          -- trouble.action("preview")
-          -- trouble.close()
-          -- end
-          -- else
-          -- trouble.
-          -- end
-          -- vim.defer_fn(function()
-          --   trouble.toggle("quickfix")
-          -- end, 0)
-        else
-          vim.cmd.lclose()
-          vim.notify("There are some issues ...", vim.log.levels.ERROR, { title = "Shell Cmd Post" })
-          trouble.open("quickfix")
-        end
-        -- vim.defer_fn(function()
-        --   vim.cmd.lclose()
-        --   trouble.open("loclist")
-        -- end, 0)
-        -- vim.defer_fn(function()
-        --   vim.cmd.cclose()
-        --   trouble.open("quickfix")
-      end, 0)
-    end,
-  })
+  -- vim.api.nvim_create_autocmd("ShellCmdPost", {
+  --   desc = "Replace quick/local lists with trouble.nvim",
+  --   callback = function()
+  --     vim.defer_fn(function()
+  --       local qflist = vim.fn.getqflist({ title = 0, items = 0 })
+  --       local trouble = require("trouble")
+  --       if next(qflist.items) == nil then
+  --         local loclist = vim.fn.getloclist(0)
+  --         -- if loclist == nil and loclist.items == nil then
+  --         -- if trouble.is_open() then
+  --         -- trouble.toggle("workspace_diagnostics")
+  --         vim.notify("All right :-)", vim.log.levels.INFO, { title = "Shell Cmd Post" })
+  --         trouble.open("workspace_diagnostics")
+  --         vim.cmd("res 5")
+  --         vim.cmd("wincmd p")
+  --         -- trouble.action("cancel")
+  --         -- trouble.close()
+  --         -- end
+  --         -- else
+  --         -- trouble.
+  --         -- end
+  --         -- vim.defer_fn(function()
+  --         --   trouble.toggle("quickfix")
+  --         -- end, 0)
+  --       else
+  --         vim.cmd.lclose()
+  --         vim.notify("There are some issues ...", vim.log.levels.ERROR, { title = "Shell Cmd Post" })
+  --         -- vim.cmd("set noequalalways")
+  --         trouble.open("quickfix")
+  --       end
+  --       -- vim.defer_fn(function()
+  --       --   vim.cmd.lclose()
+  --       --   trouble.open("loclist")
+  --       -- end, 0)
+  --       -- vim.defer_fn(function()
+  --       --   vim.cmd.cclose()
+  --       --   trouble.open("quickfix")
+  --     end, 0)
+  --   end,
+  -- })
 
   -- vim.api.nvim_create_autocmd("BufNew", {
   --   desc = "VS Code: auto select virtualenv Nvim open, and VS Code launch.json config activation",

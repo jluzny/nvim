@@ -112,43 +112,54 @@ return {
 
   {
     "folke/trouble.nvim",
-    opts = {
-      height = 5,
-      auto_open = true,
-      auto_close = false,
-      auto_preview = true,
-      multiline = false,
-      indent_lines = false,
-      padding = false,
-    },
-    -- config = function(_, opts)
-    --   require("trouble").setup(opts)
-    --   local function use_trouble()
-    --     local trouble = require("trouble")
-    --     local qflist = vim.fn.getqflist({ title = 0, items = 0 })
-    --
-    --     -- if vim.fn.getloclist(0, { filewinid = 1 }).filewinid ~= 0 then
-    --     --   vim.defer_fn(function()
-    --     --     vim.cmd.lclose()
-    --     --     trouble.open("loclist")
-    --     --   end, 0)
-    --     -- else
-    --     --   vim.defer_fn(function()
-    --     --     vim.cmd.cclose()
-    --     --     trouble.open("quickfix")
-    --     --   end, 0)
-    --     -- end
-    --
-    --     -- if next(qflist.items) == nil then
-    --     --   vim.defer_fn(trouble.close, 0)
-    --     --   return
-    --     -- end
-    --   end
-    --
-    --   vim.api.nvim_create_autocmd("BufNew", {
-    --     callback = use_trouble,
-    --   })
-    -- end,
+    event = "VeryLazy",
+    -- opts = {
+    --   height = 5,
+    --   auto_open = true,
+    --   auto_close = false,
+    --   auto_preview = true,
+    --   multiline = false,
+    --   indent_lines = false,
+    --   padding = false,
+    -- },
+    config = function()
+      local opts = {
+        height = 5,
+        auto_open = true,
+        auto_close = true,
+        auto_preview = true,
+        multiline = false,
+        indent_lines = false,
+        padding = false,
+      }
+      local trouble = require("trouble")
+      trouble.setup(opts)
+
+      vim.api.nvim_create_autocmd("ShellCmdPost", {
+        desc = "Replace quick/local lists with trouble.nvim",
+        callback = function()
+          vim.defer_fn(function()
+            local qflist = vim.fn.getqflist({ title = 0, items = 0 })
+            if next(qflist.items) == nil then
+              vim.notify("All right :-)", vim.log.levels.INFO, { title = "Shell Cmd Post" })
+              if trouble.is_open() then
+                trouble.open("workspace_diagnostics")
+                trouble.close()
+              end
+              -- trouble.action("cancel")
+              -- vim.cmd("res 0")
+              -- vim.cmd("wincmd p")
+            else
+              vim.cmd.lclose()
+              vim.notify("There are some issues ...", vim.log.levels.ERROR, { title = "Shell Cmd Post" })
+              trouble.open("quickfix")
+              vim.cmd("res 5")
+            end
+          end, 0)
+        end,
+      })
+      return true
+    end,
   },
 
   {
@@ -208,9 +219,9 @@ return {
           -- },
           {
             elements = {
-              { id = "console", size = 0.5, },
-              { id = "scopes", size = 0.39, },
-              { id = "repl", size = 0.11, },
+              { id = "console", size = 0.44, },
+              { id = "scopes", size = 0.44, },
+              { id = "repl", size = 0.12, },
             },
             position = "bottom", size = 10,
           },
@@ -220,12 +231,12 @@ return {
 
       -- toggle windows after debug
       dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open({})
+        dapui.open({ reset = true })
         -- vim.cmd("Neotree close")
       end
 
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        -- dapui.close({})
+      dap.listeners.after.event_terminated["dapui_config"] = function()
+        dapui.close({})
         -- vim.cmd("Neotree show")
       end
 

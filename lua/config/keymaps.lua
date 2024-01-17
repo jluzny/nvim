@@ -26,6 +26,8 @@ if not vim.g.vscode then
 
   vim.keymap.set({ "n", "i" }, "<C-S-P>", "<leader>sc", { desc = "Command history", remap = true })
   vim.keymap.set({ "n" }, "<F6>", "@:", { desc = "Rerun last command", remap = true, silent = true })
+  -- Escape to normal mode in terminal
+  vim.cmd("tnoremap <Esc><Esc> <C-\\><C-N>")
 
   vim.keymap.set({ "n" }, "<Tab>", "<cmd>wincmd w<cr>", { desc = "Switch window", remap = false })
   vim.keymap.set({ "n" }, "<S-Tab>", "<cmd>wincmd W<cr>", { desc = "Switch window back", remap = false })
