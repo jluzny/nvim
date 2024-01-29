@@ -55,6 +55,31 @@ return {
   },
 
   { "echasnovski/mini.pairs", enabled = false },
+  { "echasnovski/mini.animate", enabled = false },
+
+  {
+    "koenverburg/peepsight.nvim",
+    event = "VeryLazy",
+    config = function()
+      local peepsight = require("peepsight")
+      peepsight.setup({
+        -- Zig
+        "Decl",
+      })
+      peepsight.enable()
+    end,
+  },
+
+  -- {
+  --   "nvim-treesitter/playground",
+  --   enabled = true,
+  --   event = "VeryLazy",
+  --   config = function()
+  --     vim.keymap.set("n", "<leader>tp", function()
+  --       require("nvim-treesitter-playground.hl-info").show_hl_captures()
+  --     end)
+  --   end,
+  -- },
 
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -113,15 +138,6 @@ return {
   {
     "folke/trouble.nvim",
     event = "VeryLazy",
-    -- opts = {
-    --   height = 5,
-    --   auto_open = true,
-    --   auto_close = false,
-    --   auto_preview = true,
-    --   multiline = false,
-    --   indent_lines = false,
-    --   padding = false,
-    -- },
     config = function()
       local opts = {
         height = 5,
@@ -131,6 +147,7 @@ return {
         multiline = false,
         indent_lines = false,
         padding = false,
+        group = true,
       }
       local trouble = require("trouble")
       trouble.setup(opts)
@@ -182,7 +199,7 @@ return {
 
       -- Debug keymapping
       -- stylua: ignore
-      -- vim.keymap.set({"n","v"}, "<F3>", require("dapui").eval)
+      vim.keymap.set({"n","v"}, "<F2>", require("dapui").eval)
       -- vim.keymap.set("n", "<F5>", require("dap").continue)
       -- vim.keymap.set("n", "<F6>", require("dap").run_last)
       -- vim.keymap.set("n", "<F8>", require("neotest").run.run_last)
@@ -195,7 +212,10 @@ return {
       vim.keymap.set("n", "<F9>", require("dap").step_over)
       vim.keymap.set("n", "<F10>", require("dap").step_into)
       vim.keymap.set("n", "<F11>", require("dap").step_out)
-      vim.keymap.set("n", "<F12>", require("dap").terminate)
+      vim.keymap.set("n", "<F12>", function()
+        require("dap").terminate()
+        require("dapui").close()
+      end)
     end,
   },
 
@@ -236,7 +256,7 @@ return {
       end
 
       dap.listeners.after.event_terminated["dapui_config"] = function()
-        dapui.close({})
+        dapui.close()
         -- vim.cmd("Neotree show")
       end
 

@@ -8,15 +8,15 @@ for _, mode in pairs({ "n", "v", "x" }) do
   end
 end
 
-vim.keymap.set({ "n", "v" }, "f", "w", { desc = "Add <f> as antoher key to move word forward", remap = true })
-vim.keymap.set({ "n", "v" }, "F", "W", { desc = "Add <F> as antoher key to move Word forward", remap = true })
+vim.keymap.set({ "n", "x" }, "f", "w", { desc = "Add <f> as antoher key to move word forward", remap = true })
+vim.keymap.set({ "n", "x" }, "F", "W", { desc = "Add <F> as antoher key to move Word forward", remap = true })
 
-vim.keymap.set({ "n", "v" }, "d", '"_d', { desc = "Delete without copying to system clipboard", remap = false })
-vim.keymap.set({ "n", "v" }, "D", '"_D', { desc = "Delete without copying to system clipboard", remap = false })
-vim.keymap.set({ "n", "v" }, "c", '"_c', { desc = "Cut without copying to system clipboard", remap = false })
-vim.keymap.set({ "n", "v" }, "C", '"_C', { desc = "Cut without copying to system clipboard", remap = false })
-vim.keymap.set({ "n", "v" }, "X", "Vx", { desc = "Cut whole line to clipboard", remap = false })
-vim.keymap.set({ "n", "v" }, "<C-S-C>", '"+y', { desc = "Copy to system clipboard", remap = true })
+vim.keymap.set({ "n", "x" }, "d", '"_d', { desc = "Delete without copying to system clipboard", remap = false })
+vim.keymap.set({ "n", "x" }, "D", '"_D', { desc = "Delete without copying to system clipboard", remap = false })
+vim.keymap.set({ "n", "x" }, "c", '"_c', { desc = "Cut without copying to system clipboard", remap = false })
+vim.keymap.set({ "n", "x" }, "C", '"_C', { desc = "Cut without copying to system clipboard", remap = false })
+vim.keymap.set({ "n", "x" }, "X", "Vx", { desc = "Cut whole line to clipboard", remap = false })
+vim.keymap.set({ "n", "x" }, "<C-S-C>", '"+y', { desc = "Copy to system clipboard", remap = true })
 vim.keymap.set({ "n" }, "<C-C>", "<cmd>close<cr>", { desc = "Close window", remap = true })
 
 if not vim.g.vscode then
