@@ -142,8 +142,8 @@ return {
     config = function()
       local opts = {
         height = 5,
-        auto_open = true,
-        auto_close = true,
+        auto_open = false,
+        auto_close = false,
         auto_preview = true,
         multiline = false,
         indent_lines = false,

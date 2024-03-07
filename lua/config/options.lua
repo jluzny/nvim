@@ -5,8 +5,6 @@
 if not vim.g.vscode then
   local opt = vim.opt
 
-  -- vim.cmd("set noequalawlays")
-
   -- code folding
   -- opt.foldlevel = 20
   -- opt.foldmethod = "expr"
