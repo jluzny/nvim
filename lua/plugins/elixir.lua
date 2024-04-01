@@ -24,7 +24,10 @@ return {
           command = vim.fn.stdpath("data") .. "/mason/bin/elixir-ls-debugger",
           args = {},
         }
-        dap.configurations.elixir = {
+      end
+
+      for _, language in ipairs({ "elixir", "erlang" }) do
+        dap.configurations[language] = {
           {
             type = "mix_task",
             name = "mix test",
@@ -41,6 +44,7 @@ return {
       end
     end,
   },
+
   -- {
   --   "elixir-tools/elixir-tools.nvim",
   --   version = "*",

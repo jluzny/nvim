@@ -240,9 +240,9 @@ return {
           -- },
           {
             elements = {
-              { id = "console", size = 0.44, },
+              { id = "repl", size = 0.66, },
+              -- { id = "console", size = 0.44, },
               { id = "scopes", size = 0.44, },
-              { id = "repl", size = 0.12, },
             },
             position = "bottom", size = 10,
           },
