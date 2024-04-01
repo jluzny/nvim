@@ -26,7 +26,7 @@ return {
         }
       end
 
-      for _, language in ipairs({ "elixir", "erlang" }) do
+      for _, language in ipairs({ "elixir", "erlang", "gleam" }) do
         dap.configurations[language] = {
           {
             type = "mix_task",
@@ -40,38 +40,20 @@ return {
               "test/**/*_test.exs",
             },
           },
+          {
+            type = "mix_task",
+            name = "gleam test",
+            task = "gleam.test",
+            taskArgs = {},
+            request = "launch",
+            projectDir = "${workspaceFolder}",
+            requireFiles = {
+              "test/**/test_helper.erl",
+              "test/**/*_test.erl",
+            },
+          },
         }
       end
     end,
   },
-
-  -- {
-  --   "elixir-tools/elixir-tools.nvim",
-  --   version = "*",
-  --   event = { "BufReadPre", "BufNewFile" },
-  --   config = function()
-  --     local elixir = require("elixir")
-  --     local elixirls = require("elixir.elixirls")
-  --
-  --     elixir.setup({
-  --       nextls = { enable = false },
-  --       credo = {},
-  --       elixirls = {
-  --         enable = true,
-  --         settings = elixirls.settings({
-  --           dialyzerEnabled = true,
-  --           enableTestLenses = true,
-  --         }),
-  --         on_attach = function(client, bufnr)
-  --           vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
-  --           vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
-  --           vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
-  --         end,
-  --       },
-  --     })
-  --   end,
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --   },
-  -- },
 }
