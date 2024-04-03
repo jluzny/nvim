@@ -44,13 +44,13 @@ return {
             type = "mix_task",
             name = "gleam test",
             task = "gleam.test",
-            taskArgs = {},
+            taskArgs = { "--trace" },
             request = "launch",
             projectDir = "${workspaceFolder}",
-            requireFiles = {
-              "test/**/test_helper.erl",
-              "test/**/*_test.erl",
-            },
+            -- requireFiles = {
+            --   "test/**/test_helper.erl",
+            --   "test/**/*_test.erl",
+            -- },
           },
         }
       end

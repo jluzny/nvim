@@ -240,9 +240,9 @@ return {
           -- },
           {
             elements = {
-              { id = "repl", size = 0.66, },
-              -- { id = "console", size = 0.44, },
+              { id = "console", size = 0.44, },
               { id = "scopes", size = 0.44, },
+              { id = "repl", size = 0.12, },
             },
             position = "bottom", size = 10,
           },
@@ -257,7 +257,7 @@ return {
       end
 
       dap.listeners.after.event_terminated["dapui_config"] = function()
-        dapui.close()
+        -- dapui.close()
         -- vim.cmd("Neotree show")
       end
 
