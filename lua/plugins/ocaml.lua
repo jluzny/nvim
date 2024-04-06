@@ -48,7 +48,7 @@ return {
             type = "ocaml.earlybird",
             request = "launch",
             stopOnEntry = false,
-            program = "/home/jiri/dev/ocaml/learning/hello_world/_build/default/bin/main.bc",
+            program = "/home/jiri/dev/ocaml/learning/riot-examples/1-hello-world/_build/default/bin/main.bc",
             onlyDebugGlob = "<${workspaceRoot}/**/*>",
             -- yieldSteps = 1024,
           },

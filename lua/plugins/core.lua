@@ -253,12 +253,13 @@ return {
       -- toggle windows after debug
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open({ reset = true })
+        vim.g.dap_current_buf = vim.api.nvim_get_current_buf()
         -- vim.cmd("Neotree close")
       end
 
       dap.listeners.after.event_terminated["dapui_config"] = function()
-        -- dapui.close()
-        -- vim.cmd("Neotree show")
+        vim.api.nvim_set_current_buf(vim.g.dap_current_buf)
+        dapui.close()
       end
 
       -- dap.defaults.fallback.external_terminal = {
