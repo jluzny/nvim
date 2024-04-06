@@ -40,20 +40,31 @@ return {
           type = "executable",
           command = "ocamlearlybird",
           args = { "debug" },
-          cwd = "${workspaceRoot}",
         }
         dap.configurations.ocaml = {
           {
             name = "ocaml.earlybird",
             type = "ocaml.earlybird",
+            console = "integratedTerminal",
             request = "launch",
             stopOnEntry = false,
-            program = "/home/jiri/dev/ocaml/learning/riot-examples/1-hello-world/_build/default/test/test_hello_world.bc",
+            program = "_build/default/${relativeFileDirname}/${fileBasenameNoExtension}.bc",
+            cwd = "${workspaceFolder}",
             onlyDebugGlob = "<${workspaceRoot}/**/*>",
-            yieldSteps = 1024,
+            yieldSteps = 4096,
           },
         }
       end
     end,
+  },
+
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters_by_ft = {
+        ocaml = { "ocamlformat" },
+      },
+    },
   },
 }
