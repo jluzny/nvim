@@ -259,7 +259,7 @@ return {
 
       dap.listeners.after.event_terminated["dapui_config"] = function()
         vim.api.nvim_set_current_buf(vim.g.dap_current_buf)
-        dapui.close()
+        -- dapui.close()
       end
 
       -- dap.defaults.fallback.external_terminal = {
