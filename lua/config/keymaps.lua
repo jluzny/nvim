@@ -32,7 +32,7 @@ if not vim.g.vscode then
   vim.keymap.set({ "n" }, "<S-Tab>", "<cmd>wincmd W<cr>", { desc = "Switch window back", remap = false })
   vim.keymap.set({ "n" }, "<C-P>", "<C-O>", { desc = "Next change" })
   vim.keymap.set({ "n" }, "<C-N>", "<C-I>", { desc = "Previous change" })
-  vim.keymap.set({ "n" }, "<C-S-Q>", "<leader>bd", { desc = "Delete bufer", remap = true })
+  vim.keymap.set({ "n" }, "<C-S-Q>", "<leader>bD", { desc = "Delete bufer", remap = true })
 
   vim.keymap.set({ "n", "i" }, "<C-S-D>", vim.diagnostic.open_float, { desc = "Line diagnostics" })
   vim.keymap.set({ "n", "i" }, "<C-S-A>", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Code action" })

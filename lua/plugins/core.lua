@@ -142,8 +142,8 @@ return {
     config = function()
       local opts = {
         height = 5,
-        auto_open = false,
-        auto_close = false,
+        auto_open = true,
+        auto_close = true,
         auto_preview = true,
         multiline = false,
         indent_lines = false,
@@ -164,9 +164,6 @@ return {
                 trouble.open("workspace_diagnostics")
                 trouble.close()
               end
-              -- trouble.action("cancel")
-              -- vim.cmd("res 0")
-              -- vim.cmd("wincmd p")
             else
               vim.cmd.lclose()
               vim.notify("There are some issues ...", vim.log.levels.ERROR, { title = "Shell Cmd Post" })

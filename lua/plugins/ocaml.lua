@@ -9,7 +9,6 @@ return {
       if type(opts.ensure_installed) == "table" then
         vim.list_extend(opts.ensure_installed, { "ocaml" })
       end
-      -- vim.keymap.set({ "n", "i" }, "<C-S>", "<cmd>wa | make<cr>", { desc = "Save and make the file" })
     end,
   },
 
