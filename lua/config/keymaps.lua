@@ -20,8 +20,8 @@ vim.keymap.set({ "n" }, "<C-C>", "<cmd>close<cr>", { desc = "Close window", rema
 
 if not vim.g.vscode then
   vim.keymap.set({ "n", "i" }, "<C-Tab>", function()
-    require("telescope.builtin").oldfiles({ cwd_only = false })
-  end, { desc = "Find Recent files" })
+    require("telescope.builtin").buffers({ sort_mru = true, ignore_current_buffer = true })
+  end, { desc = "Find open buffers" })
 
   vim.keymap.set({ "n", "i" }, "<C-S-P>", "<leader>sc", { desc = "Command history", remap = true })
   vim.keymap.set({ "n" }, "<F6>", "@:", { desc = "Rerun last command", remap = true, silent = true })

@@ -255,8 +255,16 @@ return {
       end
 
       dap.listeners.after.event_terminated["dapui_config"] = function()
-        vim.api.nvim_set_current_buf(vim.g.dap_current_buf)
         -- dapui.close()
+        vim.api.nvim_set_current_buf(vim.g.dap_current_buf)
+        -- vim.defer_fn(function()
+        --   local bufs = vim.api.nvim_list_bufs()
+        --   for _, i in ipairs(bufs) do
+        --     if vim.api.nvim_get_option_value("readonly", { buf = i }) then
+        --       vim.api.nvim_buf_delete(i, { "force" })
+        --     end
+        --   end
+        -- end, 100000)
       end
 
       -- dap.defaults.fallback.external_terminal = {
