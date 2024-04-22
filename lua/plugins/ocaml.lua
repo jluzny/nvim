@@ -14,11 +14,25 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        ocamllsp = {},
-      },
-    },
+    -- opts = {
+    --   servers = {
+    --     ocamllsp = {},
+    --   },
+    --   inlay_hints = {
+    --     enabled = true,
+    --   },
+    -- },
+
+    init = function()
+      require("lspconfig").ocamllsp.setup({
+        settings = {
+          codelens = { enable = true },
+          extendedHover = { enable = true },
+          duneDiagnostics = { enable = true },
+          inlayHints = { enable = true },
+        },
+      })
+    end,
   },
 
   {
