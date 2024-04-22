@@ -38,7 +38,7 @@ return {
         configs.roc_lsp = {
           default_config = {
             cmd = { "roc_language_server" },
-            root_dir = lspconfig.util.root_pattern(".git"),
+            root_dir = lspconfig.util.root_pattern(".git") or vim.fn.getcwd(),
             filetypes = { "roc" },
           },
         }
