@@ -6,12 +6,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
-      vim.filetype.add({
-        pattern = {
-          [".*%.roc"] = "roc",
-        },
-      })
-
       if type(opts.ensure_installed) == "table" then
         vim.list_extend(opts.ensure_installed, { "roc" })
       end
