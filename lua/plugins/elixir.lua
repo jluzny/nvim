@@ -3,19 +3,46 @@ if vim.g.vscode then
 end
 
 return {
-  { import = "lazyvim.plugins.extras.lang.elixir" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, {
+        "elixir",
+        "heex",
+        "eex",
+      })
+    end,
+  },
+
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, {
+        "elixir-ls",
+        "lexical",
+      })
+    end,
+  },
+
+  {
+    "jfpedroza/neotest-elixir",
+  },
+
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "jfpedroza/neotest-elixir",
+    },
+    opts = {
+      adapters = {
+        ["neotest-elixir"] = {},
+      },
+    },
+  },
 
   {
     "mfussenegger/nvim-dap",
-    dependencies = {
-      {
-        "williamboman/mason.nvim",
-        opts = function(_, opts)
-          opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "elixir-ls" })
-        end,
-      },
-    },
     opts = function(_, opts)
       local dap = require("dap")
       if not dap.adapters["mix_task"] then
@@ -26,7 +53,7 @@ return {
         }
       end
 
-      for _, language in ipairs({ "elixir", "erlang", "gleam" }) do
+      for _, language in ipairs({ "elixir", "gleam" }) do
         dap.configurations[language] = {
           {
             type = "mix_task",
@@ -40,18 +67,24 @@ return {
               "test/**/*_test.exs",
             },
           },
-          {
-            type = "mix_task",
-            name = "gleam test",
-            task = "gleam.test",
-            taskArgs = { "--trace" },
-            request = "launch",
-            projectDir = "${workspaceFolder}",
-            -- requireFiles = {
-            --   "test/**/test_helper.erl",
-            --   "test/**/*_test.erl",
-            -- },
-          },
+          -- {
+          --   type = "mix_task",
+          --   name = "mix phx.server",
+          --   task = "phx.server",
+          --   -- taskArgs = { "--trace", "${file}" },
+          --   -- exitAfterTaskReturns = false,
+          --   request = "launch",
+          --   projectDir = "${workspaceFolder}",
+          --   startApps = true,
+          -- },
+          -- {
+          --   type = "mix_task",
+          --   name = "gleam test",
+          --   task = "gleam.test",
+          --   taskArgs = { "--trace" },
+          --   request = "launch",
+          --   projectDir = "${workspaceFolder}",
+          -- },
         }
       end
     end,

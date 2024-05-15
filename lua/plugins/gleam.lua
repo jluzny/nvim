@@ -14,21 +14,21 @@ return {
     end,
   },
 
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   opts = {
-  --     servers = {
-  --       gleam = {},
-  --     },
-  --   },
-  -- },
-
   {
     "neovim/nvim-lspconfig",
-    init = function()
-      require("lspconfig").gleam.setup({ cmd = { "glas", "--stdio" } })
-    end,
+    opts = {
+      servers = {
+        gleam = {},
+      },
+    },
   },
+
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   init = function()
+  --     require("lspconfig").gleam.setup({ cmd = { "glas", "--stdio" } })
+  --   end,
+  -- },
 
   -- {
   --   "neovim/nvim-lspconfig",

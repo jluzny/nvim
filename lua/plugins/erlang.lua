@@ -38,23 +38,23 @@ return {
           command = "els_dap",
           args = {},
         }
-        -- dap.configurations.erlang = {
-        --   {
-        --     name = "erlang",
-        --     type = "erlang",
-        --     request = "launch",
-        --     -- request = "attach",
-        --     -- projectnode = "hello_world_example",
-        --     -- cookie = "hello_world_example",
-        --     -- timeout = "300",
-        --     cwd = "${workspaceRoot}",
-        --     -- projectDir = "${workspaceFolder}",
-        --     -- requireFiles = {
-        --     --   "test/**/test_helper.exs",
-        --     --   "test/**/*_test.exs",
-        --     -- },
-        --   },
-        -- }
+        dap.configurations.erlang = {
+          {
+            name = "erlang",
+            type = "erlang",
+            request = "launch",
+            -- request = "attach",
+            -- projectnode = "hello_world_example",
+            -- cookie = "hello_world_example",
+            -- timeout = "300",
+            cwd = "${workspaceRoot}",
+            -- projectDir = "${workspaceFolder}",
+            -- requireFiles = {
+            --   "test/**/test_helper.exs",
+            --   "test/**/*_test.exs",
+            -- },
+          },
+        }
       end
     end,
   },
