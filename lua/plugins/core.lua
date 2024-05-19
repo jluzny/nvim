@@ -12,7 +12,6 @@ return {
   { import = "lazyvim.plugins.extras.util.project" },
   { import = "lazyvim.plugins.extras.ui.mini-animate" },
   { import = "lazyvim.plugins.extras.test.core" },
-  { import = "lazyvim.plugins.extras.coding.native_snippets" },
 
   {
     "akinsho/bufferline.nvim",
@@ -206,7 +205,10 @@ return {
       end)
       -- vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
       vim.keymap.set("n", "<F7>", require("persistent-breakpoints.api").toggle_breakpoint)
-      vim.keymap.set("n", "<F8>", require("dap").continue)
+      vim.keymap.set("n", "<F8>", function()
+        require("dapui").open()
+        require("dap").continue()
+      end)
       vim.keymap.set("n", "<F9>", require("dap").step_over)
       vim.keymap.set("n", "<F10>", require("dap").step_into)
       vim.keymap.set("n", "<F11>", require("dap").step_out)
@@ -248,7 +250,7 @@ return {
       dapui.setup(opts)
 
       -- toggle windows after debug
-      dap.listeners.after.event_initialized["dapui_config"] = function()
+      dap.listeners.before.event_initialized["dapui_config"] = function()
         dapui.open({ reset = true })
         vim.g.dap_current_buf = vim.api.nvim_get_current_buf()
         -- vim.cmd("Neotree close")
