@@ -1,4 +1,4 @@
-if true or vim.g.vscode then
+if vim.g.vscode then
   return {}
 end
 
@@ -9,6 +9,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local elixir = require("elixir")
+      local elixirls = require("elixir.elixirls")
 
       elixir.setup({
         nextls = {
@@ -22,8 +23,33 @@ return {
           },
         },
         credo = { enable = true },
-        elixirls = { enable = true, cmd = { "elixir-ls" } },
+        elixirls = {
+          enable = false,
+          cmd = { "elixir-ls" },
+          settings = elixirls.settings({
+            dialyzerEnabled = false,
+            enableTestLenses = false,
+            suggestSpecs = true,
+          }),
+        },
       })
     end,
+  },
+
+  {
+    "jfpedroza/neotest-elixir",
+  },
+
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "jfpedroza/neotest-elixir",
+    },
+    opts = {
+      adapters = {
+        ["neotest-elixir"] = {},
+      },
+    },
   },
 }
