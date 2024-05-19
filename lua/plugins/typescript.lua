@@ -1,4 +1,4 @@
-if true or vim.g.vscode then
+if vim.g.vscode then
   return {}
 end
 
@@ -17,59 +17,61 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "typescript", "tsx" })
+        vim.list_extend(opts.ensure_installed, { "typescript", "tsx", "javascript" })
       end
     end,
   },
 
   -- correctly setup lspconfig
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = { "jose-elias-alvarez/typescript.nvim" },
-    opts = {
-      -- make sure mason installs the server
-      servers = {
-        ---@type lspconfig.options.tsserver
-        tsserver = {
-          keys = {
-            { "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
-            { "<leader>cR", "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
-          },
-          settings = {
-            typescript = {
-              format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
-              },
-            },
-            javascript = {
-              format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
-              },
-            },
-            completions = {
-              completeFunctionCalls = true,
-            },
-          },
-        },
-      },
-      setup = {
-        tsserver = function(_, opts)
-          require("typescript").setup({ server = opts })
-          return true
-        end,
-      },
-    },
-  },
-  {
-    "nvimtools/none-ls.nvim",
-    opts = function(_, opts)
-      table.insert(opts.sources, require("typescript.extensions.null-ls.code-actions"))
-    end,
-  },
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   dependencies = { "jose-elias-alvarez/typescript.nvim" },
+  --   opts = {
+  --     -- make sure mason installs the server
+  --     servers = {
+  --       ---@type lspconfig.options.tsserver
+  --       tsserver = {
+  --         keys = {
+  --           { "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
+  --           { "<leader>cR", "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
+  --         },
+  --         settings = {
+  --           typescript = {
+  --             format = {
+  --               indentSize = vim.o.shiftwidth,
+  --               convertTabsToSpaces = vim.o.expandtab,
+  --               tabSize = vim.o.tabstop,
+  --             },
+  --           },
+  --           javascript = {
+  --             format = {
+  --               indentSize = vim.o.shiftwidth,
+  --               convertTabsToSpaces = vim.o.expandtab,
+  --               tabSize = vim.o.tabstop,
+  --             },
+  --           },
+  --           completions = {
+  --             completeFunctionCalls = true,
+  --           },
+  --         },
+  --       },
+  --     },
+  --     setup = {
+  --       tsserver = function(_, opts)
+  --         require("typescript").setup({ server = opts })
+  --         return true
+  --       end,
+  --     },
+  --   },
+  -- },
+
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   opts = function(_, opts)
+  --     table.insert(opts.sources, require("typescript.extensions.null-ls.code-actions"))
+  --   end,
+  -- },
+
   {
     "mfussenegger/nvim-dap",
     dependencies = {
@@ -106,11 +108,11 @@ return {
               request = "launch",
               name = "Launch Current File (pwa-node with ts-node)",
               cwd = vim.fn.getcwd(),
-              runtimeArgs = { "--no-warnings=ExperimentalWarning", "--loader", "ts-node/esm" },
-              -- runtimeExecutable = "node",
+              -- runtimeArgs = { "--loader", "ts-node/esm" },
+              runtimeExecutable = "ts-node",
               args = { "${file}" },
-              -- sourceMaps = true,
-              -- protocol = "inspector",
+              sourceMaps = true,
+              protocol = "inspector",
               skipFiles = { "<node_internals>/**", "node_modules/**" },
               resolveSourceMapLocations = {
                 "${workspaceFolder}/**",
