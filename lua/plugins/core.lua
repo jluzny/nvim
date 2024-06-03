@@ -10,7 +10,6 @@ return {
   { import = "lazyvim.plugins.extras.lsp.none-ls" },
   { import = "lazyvim.plugins.extras.dap.core" },
   { import = "lazyvim.plugins.extras.util.project" },
-  { import = "lazyvim.plugins.extras.ui.mini-animate" },
   { import = "lazyvim.plugins.extras.test.core" },
 
   {
@@ -137,43 +136,87 @@ return {
 
   {
     "folke/trouble.nvim",
-    event = "VeryLazy",
+    ft = { "typescript" },
     config = function()
       local opts = {
-        height = 5,
+        win = { type = "split", size = 0.15 },
         auto_open = true,
-        auto_close = true,
+        auto_close = false,
         auto_preview = true,
         multiline = false,
         indent_lines = false,
         padding = false,
         group = true,
+        warn_no_results = false,
+        open_no_results = true,
+
+        modes = {
+          mydiags = {
+            mode = "diagnostics", -- inherit from diagnostics mode
+            filter = {
+              any = {
+                buf = 0, -- current buffer
+                {
+                  severity = vim.diagnostic.severity.ERROR, -- errors only
+                  -- limit to files in the current project
+                  function(item)
+                    return item.filename:find((vim.loop or vim.uv).cwd(), 1, true)
+                  end,
+                },
+              },
+            },
+          },
+        },
       }
       local trouble = require("trouble")
       trouble.setup(opts)
 
-      vim.api.nvim_create_autocmd("ShellCmdPost", {
-        desc = "Replace quick/local lists with trouble.nvim",
+      vim.api.nvim_create_autocmd("BufReadPost", {
+        desc = "Replace diagnostics list with trouble.nvim",
         callback = function()
           vim.defer_fn(function()
-            local qflist = vim.fn.getqflist({ title = 0, items = 0 })
-            if next(qflist.items) == nil then
-              vim.notify("All right :-)", vim.log.levels.INFO, { title = "Shell Cmd Post" })
-              if trouble.is_open() then
-                trouble.open("workspace_diagnostics")
-                trouble.close()
-              end
-            else
-              vim.cmd.lclose()
-              vim.notify("There are some issues ...", vim.log.levels.ERROR, { title = "Shell Cmd Post" })
-              trouble.open("quickfix")
-              vim.cmd("res 5")
-            end
+            vim.cmd("Trouble mydiags")
           end, 0)
         end,
       })
-      return true
     end,
+
+    -- config = function()
+    --   -- local opts = {
+    --   --   height = 5,
+    --   --   auto_open = true,
+    --   --   auto_close = false,
+    --   --   auto_preview = true,
+    --   --   multiline = false,
+    --   --   indent_lines = false,
+    --   --   padding = false,
+    --   --   group = true,
+    --   -- }
+    --   local trouble = require("trouble")
+    --   -- trouble.setup({ defaults = { opts } })
+    --
+    --   vim.api.nvim_create_autocmd("BufWritePost", {
+    --     desc = "Replace quick/local lists with trouble.nvim",
+    --     callback = function()
+    --       vim.defer_fn(function()
+    --         local qflist = vim.fn.getqflist({ title = 0, items = 0 })
+    --         if next(qflist.items) == nil then
+    --           vim.notify("All right :-)", vim.log.levels.INFO, { title = "Shell Cmd Post" })
+    --           if trouble.is_open() then
+    --             trouble.open("workspace_diagnostics")
+    --             trouble.close()
+    --           end
+    --         else
+    --           vim.cmd.lclose()
+    --           vim.notify("There are some issues ...", vim.log.levels.ERROR, { title = "Shell Cmd Post" })
+    --           trouble.open("quickfix")
+    --           vim.cmd("res 5")
+    --         end
+    --       end, 0)
+    --     end,
+    --   })
+    --   return true
+    -- end,
   },
 
   {

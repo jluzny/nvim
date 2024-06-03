@@ -1,4 +1,4 @@
-if true or vim.g.vscode then
+if vim.g.vscode then
   return {}
 end
 
@@ -92,6 +92,15 @@ return {
       local dap = require("dap")
 
       dap.configurations.scala = {
+        {
+          type = "scala",
+          request = "launch",
+          name = "Run",
+          metals = {
+            runType = "run",
+            --args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
+          },
+        },
         {
           type = "scala",
           request = "launch",
