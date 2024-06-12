@@ -13,14 +13,14 @@ return {
         auto_open_qflist = false,
         -- auto_close_qflist = false,
         -- auto_focus_qflist = false,
-        auto_start_watch_mode = true,
+        -- auto_start_watch_mode = false,
         -- use_trouble_qflist = false,
         use_diagnostics = true,
         -- run_as_monorepo = false,
         -- bin_path = utils.find_tsc_bin(),
         -- enable_progress_notifications = true,
         flags = {
-          noEmit = false,
+          -- noEmit = true,
           --   project = function()
           --     return utils.find_nearest_tsconfig()
           --   end,
@@ -40,12 +40,26 @@ return {
     "mfussenegger/nvim-dap",
     opts = function(_, opts)
       local dap = require("dap")
+      require("dap").adapters["pwa-node"] = {
+        type = "server",
+        host = "localhost",
+        port = "${port}",
+        executable = {
+          command = "bun",
+          args = {
+            require("mason-registry").get_package("js-debug-adapter"):get_install_path()
+              .. "/js-debug/src/dapDebugServer.js",
+            "${port}",
+          },
+        },
+      }
+
       for _, language in ipairs({ "typescript", "javascript" }) do
         dap.configurations[language] = {
           {
             type = "pwa-node",
             request = "launch",
-            name = "Launch Current File (pwa-node with ts-node)",
+            name = "Launch Tsx",
             cwd = vim.fn.getcwd(),
             -- runtimeArgs = { "--no-warnings=ExperimentalWarning", "--loader", "ts-node/esm" },
             runtimeExecutable = "tsx",
@@ -58,6 +72,30 @@ return {
               "!**/node_modules/**",
             },
           },
+          -- {
+          --   type = "pwa-node",
+          --   request = "launch",
+          --   name = "Launch Bun",
+          --   cwd = vim.fn.getcwd(),
+          --   runtimeArgs = { "--inspect-wait" },
+          --   program = "${file}",
+          --   -- sourceMaps = true,
+          --   protocol = "inspector",
+          --   runtimeExecutable = "bun",
+          --   attachSimplePort = 6499,
+          -- },
+          -- {
+          --   type = "pwa-node",
+          --   request = "launch",
+          --   name = "Launch Deno",
+          --   cwd = vim.fn.getcwd(),
+          --   runtimeArgs = { "run", "--inspect-wait" },
+          --   program = "${file}",
+          --   -- sourceMaps = true,
+          --   -- protocol = "inspector",
+          --   runtimeExecutable = "deno",
+          --   attachSimplePort = 9229,
+          -- },
         }
       end
     end,

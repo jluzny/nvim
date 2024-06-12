@@ -136,28 +136,26 @@ return {
 
   {
     "folke/trouble.nvim",
-    ft = { "typescript" },
     config = function()
       local opts = {
-        win = { type = "split", size = 0.15 },
-        auto_open = true,
-        auto_close = false,
-        auto_preview = true,
-        multiline = false,
-        indent_lines = false,
-        padding = false,
-        group = true,
-        warn_no_results = false,
-        open_no_results = true,
-
         modes = {
-          mydiags = {
-            mode = "diagnostics", -- inherit from diagnostics mode
+          diagnostics = {
+            win = { size = 0.10 },
+            auto_open = true,
+            auto_close = false,
+            auto_preview = false,
+            -- pinned = true,
+            multiline = false,
+            indent_lines = false,
+            padding = false,
+            group = true,
+            warn_no_results = false,
+            open_no_results = false,
             filter = {
               any = {
                 buf = 0, -- current buffer
                 {
-                  severity = vim.diagnostic.severity.ERROR, -- errors only
+                  severity = vim.diagnostic.severity.ERROR, -- warn only
                   -- limit to files in the current project
                   function(item)
                     return item.filename:find((vim.loop or vim.uv).cwd(), 1, true)
@@ -171,14 +169,14 @@ return {
       local trouble = require("trouble")
       trouble.setup(opts)
 
-      vim.api.nvim_create_autocmd("BufReadPost", {
-        desc = "Replace diagnostics list with trouble.nvim",
-        callback = function()
-          vim.defer_fn(function()
-            vim.cmd("Trouble mydiags")
-          end, 0)
-        end,
-      })
+      -- vim.api.nvim_create_autocmd("BufReadPost", {
+      --   desc = "Replace diagnostics list with trouble.nvim",
+      --   callback = function()
+      --     vim.defer_fn(function()
+      --       vim.cmd("Trouble diagnostics")
+      --     end, 0)
+      --   end,
+      -- })
     end,
 
     -- config = function()
