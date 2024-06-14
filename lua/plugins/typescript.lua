@@ -18,7 +18,7 @@ return {
         use_diagnostics = true,
         -- run_as_monorepo = false,
         -- bin_path = utils.find_tsc_bin(),
-        -- enable_progress_notifications = true,
+        enable_progress_notifications = false,
         flags = {
           -- noEmit = true,
           --   project = function()
@@ -61,9 +61,8 @@ return {
             request = "launch",
             name = "Launch Tsx",
             cwd = vim.fn.getcwd(),
-            -- runtimeArgs = { "--no-warnings=ExperimentalWarning", "--loader", "ts-node/esm" },
             runtimeExecutable = "tsx",
-            args = { "${file}", "hello" },
+            args = { "${file}" },
             sourceMaps = true,
             protocol = "inspector",
             skipFiles = { "<node_internals>/**", "node_modules/**" },
