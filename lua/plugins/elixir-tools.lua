@@ -24,7 +24,7 @@ return {
         },
         credo = { enable = true },
         elixirls = {
-          enable = false,
+          enable = true,
           cmd = { "elixir-ls" },
           settings = elixirls.settings({
             dialyzerEnabled = false,

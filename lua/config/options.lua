@@ -13,7 +13,10 @@ if not vim.g.vscode then
 
   --enable/diasble auto paste to/from system clipboard
   opt.clipboard = "unnamedplus"
+
   opt.wrap = true
   opt.linebreak = true
   opt.showbreak = "↪ "
+
+  opt.equalalways = false
 end

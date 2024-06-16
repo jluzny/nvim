@@ -140,22 +140,23 @@ return {
       local opts = {
         modes = {
           diagnostics = {
-            win = { size = 0.10 },
+            win = { size = 0.20, relative = "win" },
             auto_open = true,
-            auto_close = false,
-            auto_preview = false,
-            pinned = true,
+            auto_close = true,
+            auto_preview = true,
+            auto_jump = true,
+            pinned = false,
             multiline = false,
             indent_lines = false,
             padding = false,
             group = true,
             warn_no_results = false,
-            open_no_results = true,
+            open_no_results = false,
             filter = {
               any = {
                 buf = 0, -- current buffer
                 {
-                  severity = vim.diagnostic.severity.WARN, -- warn only
+                  severity = vim.diagnostic.severity.ERROR, -- error only
                   -- limit to files in the current project
                   function(item)
                     return item.filename:find((vim.loop or vim.uv).cwd(), 1, true)
