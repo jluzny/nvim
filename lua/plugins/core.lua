@@ -46,6 +46,15 @@ return {
     },
   },
 
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   name = "tokyonight",
+  --   priority = 1000,
+  --   opts = {
+  --     colorscheme = "night",
+  --   },
+  -- },
+
   {
     "LazyVim/LazyVim",
     opts = {
@@ -140,7 +149,7 @@ return {
       local opts = {
         modes = {
           diagnostics = {
-            win = { size = 0.20, relative = "win" },
+            win = { size = 0.15, relative = "win" },
             auto_open = true,
             auto_close = true,
             auto_preview = true,
@@ -152,6 +161,7 @@ return {
             group = true,
             warn_no_results = false,
             open_no_results = false,
+            preview = { scratch = false },
             filter = {
               any = {
                 buf = 0, -- current buffer
@@ -169,6 +179,7 @@ return {
       }
       local trouble = require("trouble")
       trouble.setup(opts)
+      -- vim.diagnostic.enable(false)
 
       -- vim.api.nvim_create_autocmd("BufReadPost", {
       --   desc = "Replace diagnostics list with trouble.nvim",
@@ -243,6 +254,7 @@ return {
       -- vim.keymap.set("n", "<F5>", require("neotest").run.run_last)
       vim.keymap.set("n", "<F4>", require("neotest").watch.watch)
       vim.keymap.set("n", "<F5>", function()
+        vim.cmd("wa")
         require("neotest").run.run(vim.uv.cwd())
       end)
       -- vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
@@ -256,7 +268,7 @@ return {
       vim.keymap.set("n", "<F11>", require("dap").step_out)
       vim.keymap.set("n", "<F12>", function()
         require("dap").terminate()
-        require("dapui").close()
+        require("dapui").toggle()
       end)
     end,
   },
@@ -281,7 +293,7 @@ return {
           -- },
           {
             elements = {
-              -- { id = "console", size = 0.44, },
+              -- { id = "console", size = 0.6, },
               { id = "repl", size = 0.6, },
               { id = "scopes", size = 0.4, },
             },
@@ -379,6 +391,7 @@ return {
   -- },
 
   { import = "lazyvim.plugins.extras.coding.copilot" },
+  { import = "lazyvim.plugins.extras.coding.copilot-chat" },
 
   -- {
   --   "zbirenbaum/copilot.lua",

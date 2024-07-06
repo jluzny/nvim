@@ -18,12 +18,12 @@ return {
         use_diagnostics = true,
         -- run_as_monorepo = false,
         -- bin_path = utils.find_tsc_bin(),
-        enable_progress_notifications = false,
+        enable_progress_notifications = true,
         flags = {
-          -- noEmit = true,
-          --   project = function()
-          --     return utils.find_nearest_tsconfig()
-          --   end,
+          -- noEmit = false,
+          project = function()
+            return utils.find_nearest_tsconfig()
+          end,
           --   watch = false,
         },
         -- hide_progress_notifications_from_history = true,
@@ -45,7 +45,7 @@ return {
         host = "localhost",
         port = "${port}",
         executable = {
-          command = "bun",
+          command = "node",
           args = {
             require("mason-registry").get_package("js-debug-adapter"):get_install_path()
               .. "/js-debug/src/dapDebugServer.js",
@@ -59,17 +59,46 @@ return {
           {
             type = "pwa-node",
             request = "launch",
+            name = "Run (Deno)",
+            cwd = vim.fn.getcwd(),
+            runtimeExecutable = "deno",
+            runtimeArgs = { "run", "--inspect-wait", "-A", "${file}" },
+            -- args = { "test", "${file}" },
+            attachSimplePort = 9229,
+          },
+          {
+            type = "pwa-node",
+            request = "launch",
             name = "Launch",
             cwd = vim.fn.getcwd(),
-            runtimeExecutable = "tsx",
-            args = { "${file}" },
+            runtimeExecutable = "bun",
+            args = { "${file}", "start" },
             sourceMaps = true,
             protocol = "inspector",
+            -- console = "externalTerminal",
             skipFiles = { "<node_internals>/**", "node_modules/**" },
             resolveSourceMapLocations = {
               "${workspaceFolder}/**",
               "!**/node_modules/**",
             },
+          },
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Test (Deno)",
+            cwd = vim.fn.getcwd(),
+            runtimeExecutable = "deno",
+            runtimeArgs = { "test", "--inspect-wait", "--allow-all", "--unstable-sloppy-imports", "${file}" },
+            -- args = { "test", "${file}" },
+            attachSimplePort = 9229,
+            -- sourceMaps = true,
+            -- protocol = "inspector",
+            -- console = "internalConsole",
+            -- skipFiles = { "<node_internals>/**", "node_modules/**" },
+            -- resolveSourceMapLocations = {
+            -- "${workspaceFolder}/**",
+            -- "!**/node_modules/**",
+            -- },
           },
           {
             type = "pwa-node",
@@ -80,7 +109,7 @@ return {
             args = { "test", "${file}" },
             sourceMaps = true,
             protocol = "inspector",
-            console = "internalConsole",
+            -- console = "internalConsole",
             skipFiles = { "<node_internals>/**", "node_modules/**" },
             resolveSourceMapLocations = {
               "${workspaceFolder}/**",

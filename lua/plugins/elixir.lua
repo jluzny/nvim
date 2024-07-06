@@ -1,4 +1,4 @@
-if true or vim.g.vscode then
+if vim.g.vscode then
   return {}
 end
 
@@ -19,7 +19,7 @@ return {
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         "elixir-ls",
-        "lexical",
+        -- "lexical",
       })
     end,
   },
@@ -38,6 +38,7 @@ return {
       adapters = {
         ["neotest-elixir"] = {},
       },
+      quickfix = { open = false },
     },
   },
 
