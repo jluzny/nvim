@@ -1,0 +1,23 @@
+{
+  "Gen Function $": {
+    "prefix": "gg",
+    "body": [
+      "E.gen(function* () {\n\t$0\n}"
+    ],
+    "description": "Generator function"
+  },
+  "Gen Yield $": {
+    "prefix": "yy",
+    "body": [
+      "yield* $0"
+    ],
+    "description": "Yield generator"
+  },
+  "Gen Yield $ (const)": {
+    "prefix": "yyc",
+    "body": [
+      "const $1 = yield* $0"
+    ],
+    "description": "Yield generator with const"
+  }
+}

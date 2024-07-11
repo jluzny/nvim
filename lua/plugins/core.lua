@@ -152,7 +152,7 @@ return {
             win = { size = 0.15, relative = "win" },
             auto_open = true,
             auto_close = true,
-            auto_preview = true,
+            auto_preview = false,
             auto_jump = true,
             pinned = false,
             multiline = false,

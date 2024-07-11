@@ -4,6 +4,7 @@ end
 
 return {
   { import = "lazyvim.plugins.extras.lang.typescript" },
+  { import = "lazyvim.plugins.extras.linting.eslint" },
 
   {
     "dmmulroy/tsc.nvim",
@@ -18,7 +19,7 @@ return {
         use_diagnostics = true,
         -- run_as_monorepo = false,
         -- bin_path = utils.find_tsc_bin(),
-        enable_progress_notifications = true,
+        enable_progress_notifications = false,
         flags = {
           -- noEmit = false,
           project = function()
@@ -59,7 +60,23 @@ return {
           {
             type = "pwa-node",
             request = "launch",
-            name = "Run (Deno)",
+            name = "Launch",
+            cwd = vim.fn.getcwd(),
+            runtimeExecutable = "tsx",
+            args = { "${file}" },
+            sourceMaps = true,
+            protocol = "inspector",
+            -- console = "externalTerminal",
+            skipFiles = { "<node_internals>/**", "node_modules/**" },
+            resolveSourceMapLocations = {
+              "${workspaceFolder}/**",
+              "!**/node_modules/**",
+            },
+          },
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch (Deno)",
             cwd = vim.fn.getcwd(),
             runtimeExecutable = "deno",
             runtimeArgs = { "run", "--inspect-wait", "-A", "${file}" },
@@ -69,13 +86,13 @@ return {
           {
             type = "pwa-node",
             request = "launch",
-            name = "Launch",
+            name = "Test",
             cwd = vim.fn.getcwd(),
-            runtimeExecutable = "bun",
-            args = { "${file}", "start" },
+            runtimeExecutable = "npm",
+            args = { "test", "${file}" },
             sourceMaps = true,
             protocol = "inspector",
-            -- console = "externalTerminal",
+            -- console = "internalConsole",
             skipFiles = { "<node_internals>/**", "node_modules/**" },
             resolveSourceMapLocations = {
               "${workspaceFolder}/**",
@@ -100,22 +117,7 @@ return {
             -- "!**/node_modules/**",
             -- },
           },
-          {
-            type = "pwa-node",
-            request = "launch",
-            name = "Test",
-            cwd = vim.fn.getcwd(),
-            runtimeExecutable = "npm",
-            args = { "test", "${file}" },
-            sourceMaps = true,
-            protocol = "inspector",
-            -- console = "internalConsole",
-            skipFiles = { "<node_internals>/**", "node_modules/**" },
-            resolveSourceMapLocations = {
-              "${workspaceFolder}/**",
-              "!**/node_modules/**",
-            },
-          },
+
           -- {
           --   type = "pwa-node",
           --   request = "launch",
