@@ -246,10 +246,12 @@ return {
       require("persistent-breakpoints").setup({
         load_breakpoints_event = { "BufReadPost" },
       })
+      local dap = require("dap")
+      local dapui = require("dapui")
 
       -- Debug keymapping
       -- stylua: ignore
-      vim.keymap.set({"n","v"}, "<F2>", require("dapui").eval)
+      vim.keymap.set({"n","v"}, "<F2>", dapui.eval)
       -- vim.keymap.set("n", "<F6>", require("dap").run_last)
       -- vim.keymap.set("n", "<F5>", require("neotest").run.run_last)
       vim.keymap.set("n", "<F4>", require("neotest").watch.watch)
@@ -260,15 +262,24 @@ return {
       -- vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
       vim.keymap.set("n", "<F7>", require("persistent-breakpoints.api").toggle_breakpoint)
       vim.keymap.set("n", "<F8>", function()
-        require("dapui").open()
-        require("dap").continue()
+        dapui.open()
+        dap.continue()
       end)
-      vim.keymap.set("n", "<F9>", require("dap").step_over)
-      vim.keymap.set("n", "<F10>", require("dap").step_into)
-      vim.keymap.set("n", "<F11>", require("dap").step_out)
+      vim.keymap.set("n", "<F9>", dap.step_over)
+      vim.keymap.set("n", "<F10>", dap.step_into)
+      vim.keymap.set("n", "<F11>", dap.step_out)
       vim.keymap.set("n", "<F12>", function()
-        require("dap").terminate()
-        require("dapui").toggle()
+        dapui.toggle()
+        local function checkDapSession()
+          if dap.session() then
+            dap.terminate()
+            vim.defer_fn(checkDapSession, 1000)
+          end
+        end
+
+        if dap.session() then
+          checkDapSession()
+        end
       end)
     end,
   },

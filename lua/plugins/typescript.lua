@@ -64,14 +64,14 @@ return {
             cwd = vim.fn.getcwd(),
             runtimeExecutable = "tsx",
             args = { "${file}" },
-            sourceMaps = true,
-            protocol = "inspector",
+            -- sourceMaps = true,
+            -- protocol = "inspector",
             -- console = "externalTerminal",
-            skipFiles = { "<node_internals>/**", "node_modules/**" },
-            resolveSourceMapLocations = {
-              "${workspaceFolder}/**",
-              "!**/node_modules/**",
-            },
+            -- skipFiles = { "<node_internals>/**", "node_modules/**" },
+            -- -- resolveSourceMapLocations = {
+            -- --   "${workspaceFolder}/**",
+            -- --   "!**/node_modules/**",
+            -- },
           },
           {
             type = "pwa-node",
