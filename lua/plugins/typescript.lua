@@ -3,38 +3,60 @@ if vim.g.vscode then
 end
 
 return {
-  { import = "lazyvim.plugins.extras.lang.typescript" },
-  { import = "lazyvim.plugins.extras.linting.eslint" },
+  -- { import = "lazyvim.plugins.extras.lang.typescript" },
+  -- { import = "lazyvim.plugins.extras.linting.eslint" },
+
+  -- {
+  --   "dmmulroy/tsc.nvim",
+  --   ft = { "typescript", "tsx" },
+  --   config = function(_, opts)
+  --     opts = {
+  --       auto_open_qflist = false,
+  --       -- auto_close_qflist = false,
+  --       -- auto_focus_qflist = false,
+  --       -- auto_start_watch_mode = false,
+  --       -- use_trouble_qflist = false,
+  --       use_diagnostics = true,
+  --       -- run_as_monorepo = false,
+  --       -- bin_path = utils.find_tsc_bin(),
+  --       enable_progress_notifications = false,
+  --       flags = {
+  --         -- noEmit = false,
+  --         project = function()
+  --           return utils.find_nearest_tsconfig()
+  --         end,
+  --         --   watch = false,
+  --       },
+  --       -- hide_progress_notifications_from_history = true,
+  --       -- spinner = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
+  --       -- pretty_errors = true,
+  --     }
+  --     require("tsc").setup(opts)
+  --
+  --     vim.keymap.set({ "n" }, "<C-S>", "<cmd>wa | TSC<cr>", { desc = "Execute full TS check after save" })
+  --   end,
+  -- },
+  --
 
   {
-    "dmmulroy/tsc.nvim",
-    ft = { "typescript", "tsx" },
-    config = function(_, opts)
-      opts = {
-        auto_open_qflist = false,
-        -- auto_close_qflist = false,
-        -- auto_focus_qflist = false,
-        -- auto_start_watch_mode = false,
-        -- use_trouble_qflist = false,
-        use_diagnostics = true,
-        -- run_as_monorepo = false,
-        -- bin_path = utils.find_tsc_bin(),
-        enable_progress_notifications = false,
-        flags = {
-          -- noEmit = false,
-          project = function()
-            return utils.find_nearest_tsconfig()
-          end,
-          --   watch = false,
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        denols = {
+          settings = {
+            deno = {
+              inlayHints = {
+                parameterNames = { enabled = "all" },
+                parameterTypes = { enabled = true },
+                variableTypes = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                enumMemberValues = { enabled = true },
+              },
+            },
+          },
         },
-        -- hide_progress_notifications_from_history = true,
-        -- spinner = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
-        -- pretty_errors = true,
-      }
-      require("tsc").setup(opts)
-
-      vim.keymap.set({ "n" }, "<C-S>", "<cmd>wa | TSC<cr>", { desc = "Execute full TS check after save" })
-    end,
+      },
+    },
   },
 
   {
@@ -60,6 +82,24 @@ return {
           {
             type = "pwa-node",
             request = "launch",
+            name = "Launch (Deno)",
+            cwd = vim.fn.getcwd(),
+            runtimeExecutable = "deno",
+            runtimeArgs = { "run", "--inspect-wait", "-A", "${file}" },
+            attachSimplePort = 9229,
+          },
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Test (Deno)",
+            cwd = vim.fn.getcwd(),
+            runtimeExecutable = "deno",
+            runtimeArgs = { "test", "--inspect-wait", "-A", "${file}" },
+            attachSimplePort = 9229,
+          },
+          {
+            type = "pwa-node",
+            request = "launch",
             name = "Launch",
             cwd = vim.fn.getcwd(),
             runtimeExecutable = "tsx",
@@ -76,16 +116,6 @@ return {
           {
             type = "pwa-node",
             request = "launch",
-            name = "Launch (Deno)",
-            cwd = vim.fn.getcwd(),
-            runtimeExecutable = "deno",
-            runtimeArgs = { "run", "--inspect-wait", "-A", "${file}" },
-            -- args = { "test", "${file}" },
-            attachSimplePort = 9229,
-          },
-          {
-            type = "pwa-node",
-            request = "launch",
             name = "Test",
             cwd = vim.fn.getcwd(),
             runtimeExecutable = "npm",
@@ -98,24 +128,6 @@ return {
               "${workspaceFolder}/**",
               "!**/node_modules/**",
             },
-          },
-          {
-            type = "pwa-node",
-            request = "launch",
-            name = "Test (Deno)",
-            cwd = vim.fn.getcwd(),
-            runtimeExecutable = "deno",
-            runtimeArgs = { "test", "--inspect-wait", "--allow-all", "--unstable-sloppy-imports", "${file}" },
-            -- args = { "test", "${file}" },
-            attachSimplePort = 9229,
-            -- sourceMaps = true,
-            -- protocol = "inspector",
-            -- console = "internalConsole",
-            -- skipFiles = { "<node_internals>/**", "node_modules/**" },
-            -- resolveSourceMapLocations = {
-            -- "${workspaceFolder}/**",
-            -- "!**/node_modules/**",
-            -- },
           },
 
           -- {

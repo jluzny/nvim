@@ -19,7 +19,15 @@ return {
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         "elixir-ls",
-        -- "lexical",
+        "lexical",
+      })
+      -- Disable autostart for elixirls
+      require("mason-lspconfig").setup_handlers({
+        ["elixirls"] = function()
+          require("lspconfig").elixirls.setup({
+            autostart = false,
+          })
+        end,
       })
     end,
   },

@@ -5,7 +5,6 @@ if vim.g.vscode then
 end
 
 return {
-
   -- eneble plugins and extras
   { import = "lazyvim.plugins.extras.lsp.none-ls" },
   { import = "lazyvim.plugins.extras.dap.core" },
@@ -64,6 +63,59 @@ return {
 
   { "echasnovski/mini.pairs", enabled = false },
   { "echasnovski/mini.animate", enabled = false },
+
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      top_down = false,
+      render = "minimal",
+    },
+  },
+
+  {
+    "folke/noice.nvim",
+    opts = function(_, opts)
+      opts.presets = {
+        command_palette = {
+          views = {
+            cmdline_popup = {
+              position = {
+                row = "50%",
+                col = "50%",
+              },
+              size = {
+                min_width = 60,
+                width = "auto",
+                height = "auto",
+              },
+            },
+            popupmenu = {
+              relative = "editor",
+              position = {
+                row = 23,
+                col = "50%",
+              },
+              size = {
+                width = 60,
+                height = "auto",
+                max_height = 15,
+              },
+              border = {
+                style = "rounded",
+                padding = { 0, 1 },
+              },
+              win_options = {
+                winhighlight = { Normal = "Normal", FloatBorder = "NoiceCmdlinePopupBorder" },
+              },
+            },
+          },
+        },
+      }
+      opts.lsp.signature = {
+        opts = { size = { max_height = 15 } },
+      }
+    end,
+  },
 
   {
     "koenverburg/peepsight.nvim",
@@ -162,18 +214,18 @@ return {
             warn_no_results = false,
             open_no_results = false,
             preview = { scratch = false },
-            filter = {
-              any = {
-                buf = 0, -- current buffer
-                {
-                  severity = vim.diagnostic.severity.ERROR, -- error only
-                  -- limit to files in the current project
-                  function(item)
-                    return item.filename:find((vim.loop or vim.uv).cwd(), 1, true)
-                  end,
-                },
-              },
-            },
+            -- filter = {
+            --   any = {
+            --     buf = 0, -- current buffer
+            --     {
+            --       severity = vim.diagnostic.severity.ERROR, -- error only
+            --       -- limit to files in the current project
+            --       function(item)
+            --         return item.filename:find((vim.loop or vim.uv).cwd(), 1, true)
+            --       end,
+            --     },
+            --   },
+            -- },
           },
         },
       }
@@ -253,12 +305,12 @@ return {
       -- stylua: ignore
       vim.keymap.set({"n","v"}, "<F2>", dapui.eval)
       -- vim.keymap.set("n", "<F6>", require("dap").run_last)
-      -- vim.keymap.set("n", "<F5>", require("neotest").run.run_last)
-      vim.keymap.set("n", "<F4>", require("neotest").watch.watch)
       vim.keymap.set("n", "<F5>", function()
         vim.cmd("wa")
-        require("neotest").run.run(vim.uv.cwd())
+        require("neotest").run.run_last()
       end)
+      vim.keymap.set("n", "<F4>", require("neotest").watch.watch)
+      -- vim.keymap.set("n", "<F5>", function() vim.cmd("wa") require("neotest").run.run(vim.uv.cwd()) end)
       -- vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
       vim.keymap.set("n", "<F7>", require("persistent-breakpoints.api").toggle_breakpoint)
       vim.keymap.set("n", "<F8>", function()
@@ -398,64 +450,6 @@ return {
   --       },
   --       sorting = defaults.sorting,
   --     }
-  --   end,
-  -- },
-
-  { import = "lazyvim.plugins.extras.coding.copilot" },
-  { import = "lazyvim.plugins.extras.coding.copilot-chat" },
-
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   config = function()
-  --     require("nvim-cmp").event:on("menu_opened", function()
-  --       vim.b.copilot_suggestion_hidden = true
-  --     end)
-  --
-  --     require("nvim-cmp").event:on("menu_closed", function()
-  --       vim.b.copilot_suggestion_hidden = false
-  --     end)
-  --   end,
-  -- },
-
-  -- {
-  --   "Djancyp/cheat-sheet",
-  --   event = "VeryLazy",
-  -- },
-
-  -- {
-  --   "jackMort/ChatGPT.nvim",
-  --   -- event = "VeryLazy",
-  --   config = function()
-  --     require("chatgpt").setup({})
-  --   end,
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --   },
-  -- },
-
-  -- {
-  --   "Exafunction/codeium.vim",
-  --   event = "InsertEnter",
-  --   -- stylua: ignore
-  --   config = function ()
-  --     vim.g.codeium_disable_bindings = 1
-  --     vim.keymap.set("i", "<A-m>", function() return vim.fn["codeium#Accept"]() end, { expr = true })
-  --     vim.keymap.set("i", "<A-f>", function() return vim.fn["codeium#CycleCompletions"](1) end, { expr = true })
-  --     vim.keymap.set("i", "<A-b>", function() return vim.fn["codeium#CycleCompletions"](-1) end, { expr = true })
-  --     vim.keymap.set("i", "<A-x>", function() return vim.fn["codeium#Clear"]() end, { expr = true })
-  --     vim.keymap.set("i", "<A-s>", function() return vim.fn["codeium#Complete"]() end, { expr = true })
-  --   end,
-  -- },
-  --
-  --
-  -- {
-  --   "jcdickinson/codeium.nvim",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "hrsh7th/nvim-cmp",
-  --   },
-  --   config = function()
-  --     require("codeium").setup({})
   --   end,
   -- },
 }
