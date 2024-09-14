@@ -4,7 +4,7 @@ end
 
 return {
   -- Copilot
-  -- { import = "lazyvim.plugins.extras.coding.copilot" },
+  { import = "lazyvim.plugins.extras.coding.copilot" },
   -- { import = "lazyvim.plugins.extras.coding.copilot-chat" },
 
   -- Minuet
@@ -21,11 +21,11 @@ return {
     "nvim-cmp",
     opts = function(_, opts)
       -- if you wish to use autocomplete
-      table.insert(opts.sources, 1, {
-        name = "minuet",
-        group_index = 1,
-        priority = 100,
-      })
+      -- table.insert(opts.sources, 1, {
+      --   name = "minuet",
+      --   group_index = 1,
+      --   priority = 100,
+      -- })
 
       opts.performance = {
         -- It is recommended to increase the timeout duration due to
@@ -37,7 +37,7 @@ return {
 
       opts.mapping = vim.tbl_deep_extend("force", opts.mapping or {}, {
         -- if you wish to use manual complete
-        ["<C-S-Space>"] = require("minuet").make_cmp_map(),
+        ["<S-Space>"] = require("minuet").make_cmp_map(),
         -- You don't need to worry about <CR> delay because lazyvim handles this situation for you.
         ["<CR>"] = nil,
       })
@@ -49,7 +49,8 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "nvim-telescope/telescope.nvim", -- Optional
+      "hrsh7th/nvim-cmp", -- Optional: For activating slash commands and variables in the chat buffer
+      "nvim-telescope/telescope.nvim", -- Optional: For working with files with slash commands
       {
         "stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
         opts = {},
@@ -76,40 +77,20 @@ return {
     "yetone/avante.nvim",
     event = "VeryLazy",
     lazy = false,
+    version = false, -- set this if you want to always pull the latest change
     opts = {
       -- add any opts here
     },
-    keys = {
-      {
-        "<leader>aa",
-        function()
-          require("avante.api").ask()
-        end,
-        desc = "avante: ask",
-        mode = { "n", "v" },
-      },
-      {
-        "<leader>ar",
-        function()
-          require("avante.api").refresh()
-        end,
-        desc = "avante: refresh",
-      },
-      {
-        "<leader>ae",
-        function()
-          require("avante.api").edit()
-        end,
-        desc = "avante: edit",
-        mode = "v",
-      },
-    },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = "make",
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,
       "echasnovski/mini.icons",
+      -- "zbirenbaum/copilot.lua", -- for providers='copilot'
       {
         -- support for image pasting
         "HakonHarnes/img-clip.nvim",
@@ -128,7 +109,7 @@ return {
         },
       },
       {
-        -- Make sure to setup it properly if you have lazy=true
+        -- Make sure to set this up properly if you have lazy=true
         "MeanderingProgrammer/render-markdown.nvim",
         opts = {
           file_types = { "markdown", "Avante" },

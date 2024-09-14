@@ -38,9 +38,7 @@ if not vim.g.vscode then
   vim.keymap.set({ "n", "i" }, "<C-S-A>", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Code action" })
   vim.keymap.set({ "n", "i" }, "<C-S-L>", "<cmd>lua vim.lsp.codelens.run()<cr>", { desc = "Code action" })
 
-  vim.keymap.set({ "n" }, "<C-S-F>", function()
-    require("spectre").open()
-  end, { desc = "Replace in files (Spectre)" })
+  vim.keymap.set({ "n" }, "<C-S-F>", "<leader>sr", { desc = "Replace in files", remap = true })
 
   vim.keymap.set({ "n", "i" }, "<C-S-E>", "<leader>e", { desc = "Explorer NeoTree (root dir)", remap = true })
 end

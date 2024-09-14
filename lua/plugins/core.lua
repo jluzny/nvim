@@ -314,8 +314,12 @@ return {
       -- vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
       vim.keymap.set("n", "<F7>", require("persistent-breakpoints.api").toggle_breakpoint)
       vim.keymap.set("n", "<F8>", function()
-        dapui.open()
-        dap.continue()
+        if dap.session() then
+          dap.continue()
+        else
+          dapui.open()
+          dap.run_last()
+        end
       end)
       vim.keymap.set("n", "<F9>", dap.step_over)
       vim.keymap.set("n", "<F10>", dap.step_into)
@@ -356,8 +360,8 @@ return {
           -- },
           {
             elements = {
-              -- { id = "console", size = 0.6, },
-              { id = "repl", size = 0.6, },
+              { id = "console", size = 0.6, },
+              { id = "repl", size = 0.2, },
               { id = "scopes", size = 0.4, },
             },
             position = "bottom", size = 10,

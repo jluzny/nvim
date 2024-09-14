@@ -1,9 +1,18 @@
-if true or vim.g.vscode then
+if vim.g.vscode then
   return {}
 end
 
 return {
   { import = "lazyvim.plugins.extras.lang.rust" },
+
+  -- {
+  --   "mrcjkb/rustaceanvim",
+  --   ft = { "rust" },
+  --   opts = function()
+  --     vim.o.makeprg = "cargo build %"
+  --     vim.keymap.set({ "n", "i" }, "<C-S>", "<cmd>wa | make!<cr>", { desc = "Save and make the file" })
+  --   end,
+  -- },
 }
 
 -- return {

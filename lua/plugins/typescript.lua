@@ -44,10 +44,10 @@ return {
       servers = {
         denols = {
           settings = {
-            deno = {
+            typescript = {
               inlayHints = {
                 parameterNames = { enabled = "all" },
-                parameterTypes = { enabled = true },
+                parameterTypes = { enabled = false },
                 variableTypes = { enabled = true },
                 functionLikeReturnTypes = { enabled = true },
                 enumMemberValues = { enabled = true },
@@ -58,6 +58,30 @@ return {
       },
     },
   },
+
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "markemmons/neotest-deno",
+    },
+    opts = {
+      adapters = {
+        ["neotest-deno"] = {},
+      },
+    },
+  },
+
+  -- {
+  --   "markemmons/neotest-deno",
+  -- },
+  --
+  -- {
+  --   "nvim-neotest/neotest",
+  --   optional = true,
+  --   dependencies = {
+  --     "neotest-deno",
+  --   },
+  -- },
 
   {
     "mfussenegger/nvim-dap",
@@ -77,7 +101,7 @@ return {
         },
       }
 
-      for _, language in ipairs({ "typescript", "javascript" }) do
+      for _, language in ipairs({ "typescript", "javascript", "javascript.jsx" }) do
         dap.configurations[language] = {
           {
             type = "pwa-node",
