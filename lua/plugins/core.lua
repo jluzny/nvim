@@ -34,15 +34,22 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
-    opts = {
-      color_overrides = {
-        mocha = {
-          base = "#1d1d1d",
-          mantle = "#151515",
-          crust = "#101010",
+    config = function()
+      require("catppuccin").setup({
+        custom_highlights = function(colors)
+          return {
+            WinSeparator = { fg = colors.sky },
+          }
+        end,
+        color_overrides = {
+          mocha = {
+            base = "#1d1d1d",
+            mantle = "#151515",
+            crust = "#101010",
+          },
         },
-      },
-    },
+      })
+    end,
   },
 
   -- {
@@ -63,6 +70,7 @@ return {
 
   { "echasnovski/mini.pairs", enabled = false },
   { "echasnovski/mini.animate", enabled = false },
+  { "echasnovski/mini.diff", version = false },
 
   {
     "rcarriga/nvim-notify",
@@ -201,14 +209,22 @@ return {
       local opts = {
         modes = {
           diagnostics = {
-            win = { size = 0.15, relative = "win" },
-            auto_open = true,
+            -- win = { size = 0.10, relative = "win", position = "top" },
+            win = {
+              type = "float",
+              border = "rounded",
+              relative = "editor",
+              position = { 100, 0 },
+              size = { width = 1, height = 0.38 },
+            },
+            auto_open = false,
             auto_close = true,
-            auto_preview = false,
+            auto_preview = true,
             auto_jump = true,
+            focus = true,
             pinned = false,
-            multiline = false,
-            indent_lines = false,
+            multiline = true,
+            indent_lines = true,
             padding = false,
             group = true,
             warn_no_results = false,
@@ -329,7 +345,7 @@ return {
         local function checkDapSession()
           if dap.session() then
             dap.terminate()
-            vim.defer_fn(checkDapSession, 1000)
+            vim.defer_fn(checkDapSession, 500)
           end
         end
 
@@ -360,9 +376,9 @@ return {
           -- },
           {
             elements = {
-              { id = "console", size = 0.6, },
-              { id = "repl", size = 0.2, },
-              { id = "scopes", size = 0.4, },
+              -- { id = "console", size = 0.6, },
+              { id = "repl", size = 0.65, },
+              { id = "scopes", size = 0.35, },
             },
             position = "bottom", size = 10,
           },

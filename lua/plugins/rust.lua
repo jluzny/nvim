@@ -8,10 +8,44 @@ return {
   -- {
   --   "mrcjkb/rustaceanvim",
   --   ft = { "rust" },
-  --   opts = function()
-  --     vim.o.makeprg = "cargo build %"
-  --     vim.keymap.set({ "n", "i" }, "<C-S>", "<cmd>wa | make!<cr>", { desc = "Save and make the file" })
-  --   end,
+  --   opts = {
+  --     server = {
+  --       default_settings = {
+  --         -- rust-analyzer language server configuration
+  --         ["rust-analyzer"] = {
+  --           -- Add clippy lints for Rust.
+  --           procMacro = {
+  --             enable = true,
+  --             ignored = {
+  --               ["async-trait"] = { "async_trait" },
+  --               ["napi-derive"] = { "napi" },
+  --               ["async-recursion"] = { "async_recursion" },
+  --             },
+  --           },
+  --           diagnostics = {
+  --             enable = true,
+  --             disabled = { "unresolved-proc-macro" },
+  --             enableExperimental = true,
+  --           },
+  --         },
+  --       },
+  --     },
+  --   },
+  --
+  --   -- function()
+  --   -- Rust dioxus workaround
+  --   -- local rust_group = vim.api.nvim_create_augroup("rust_group", {})
+  --   -- vim.api.nvim_create_autocmd({ "FileType" }, {
+  --   --   pattern = "rust",
+  --   --   callback = function()
+  --   --     vim.opt_local.backupcopy = "yes"
+  --   --   end,
+  --   --   group = rust_group,
+  --   -- })
+  --
+  --   -- vim.o.makeprg = "cargo build %"
+  --   -- vim.keymap.set({ "n", "i" }, "<C-S>", "<cmd>wa | make!<cr>", { desc = "Save and make the file" })
+  --   -- end,
   -- },
 }
 

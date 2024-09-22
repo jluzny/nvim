@@ -69,6 +69,21 @@ return {
             adapter = "anthropic",
           },
         },
+        inline = {
+          -- If the inline prompt creates a new buffer, how should we display this?
+          diff = {
+            diff_method = "mini_diff", -- default|mini_diff
+          },
+        },
+        display = {
+          chat = {
+            window = {
+              layout = "vertical", -- float|vertical|horizontal|buffer
+              width = 0.35,
+              relative = "editor",
+            },
+          },
+        },
       })
     end,
   },

@@ -3,34 +3,37 @@ if vim.g.vscode then
 end
 
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, {
-        "elixir",
-        "heex",
-        "eex",
-      })
-    end,
-  },
+  { import = "lazyvim.plugins.extras.lang.elixir" },
 
-  {
-    "williamboman/mason.nvim",
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, {
-        "elixir-ls",
-        -- "lexical",
-      })
-      -- Disable autostart for elixirls
-      require("mason-lspconfig").setup_handlers({
-        ["elixirls"] = function()
-          require("lspconfig").elixirls.setup({
-            autostart = false,
-          })
-        end,
-      })
-    end,
-  },
+  -- {
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   opts = function(_, opts)
+  --     vim.list_extend(opts.ensure_installed, {
+  --       "elixir",
+  --       "heex",
+  --       "eex",
+  --     })
+  --   end,
+  -- },
+
+  -- {
+  --   "williamboman/mason.nvim",
+  --   opts = function(_, opts)
+  --     vim.list_extend(opts.ensure_installed, {
+  --       "elixir-ls",
+  --       -- "lexical",
+  --     })
+  --     -- Disable autostart for elixirls
+  --     -- require("mason-lspconfig").setup_handlers({
+  --     --   ["elixirls"] = function()
+  --     --     require("lspconfig").elixirls.setup({
+  --     --       autostart = false,
+  --     --     })
+  --     --   end,
+  --     -- })
+  --   end,
+  -- },
 
   {
     "jfpedroza/neotest-elixir",
@@ -57,12 +60,13 @@ return {
       if not dap.adapters["mix_task"] then
         dap.adapters["mix_task"] = {
           type = "executable",
-          command = vim.fn.stdpath("data") .. "/mason/bin/elixir-ls-debugger",
+          command = vim.fn.stdpath("config") .. "/lua/plugins/elixir_debug_adapter.sh",
+          -- command = vim.fn.stdpath("data") .. "/mason/bin/elixir-ls-debugger",
           args = {},
         }
       end
 
-      for _, language in ipairs({ "elixir", "gleam" }) do
+      for _, language in ipairs({ "elixir" }) do
         dap.configurations[language] = {
           {
             type = "mix_task",
@@ -70,10 +74,14 @@ return {
             task = "test",
             taskArgs = { "--trace" },
             request = "launch",
+            exitAfterTaskReturns = false,
+            debugAutoInterpretAllModules = false,
+            startApps = true,
             projectDir = "${workspaceFolder}",
             requireFiles = {
               "test/**/test_helper.exs",
               "test/**/*_test.exs",
+              "lib/**/*.ex",
             },
           },
           -- {

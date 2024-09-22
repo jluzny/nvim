@@ -16,6 +16,7 @@ vim.keymap.set({ "n", "x" }, "c", '"_c', { desc = "Cut without copying to system
 vim.keymap.set({ "n", "x" }, "C", '"_C', { desc = "Cut without copying to system clipboard", remap = false })
 vim.keymap.set({ "n", "x" }, "X", "Vx", { desc = "Cut whole line to clipboard", remap = false })
 vim.keymap.set({ "n", "x" }, "<C-S-C>", '"+y', { desc = "Copy to system clipboard", remap = true })
+vim.keymap.set({ "n", "x" }, "<C-S-A>", "gg<s-v><s-g>y", { desc = "Copy whole text to system clipboard", remap = true })
 vim.keymap.set({ "n" }, "<C-C>", "<cmd>close<cr>", { desc = "Close window", remap = true })
 
 if not vim.g.vscode then
@@ -34,8 +35,9 @@ if not vim.g.vscode then
   vim.keymap.set({ "n" }, "<C-N>", "<C-I>", { desc = "Previous change" })
   vim.keymap.set({ "n" }, "<C-S-Q>", "<leader>bD", { desc = "Delete bufer", remap = true })
 
-  vim.keymap.set({ "n", "i" }, "<C-S-D>", vim.diagnostic.open_float, { desc = "Line diagnostics" })
-  vim.keymap.set({ "n", "i" }, "<C-S-A>", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Code action" })
+  vim.keymap.set({ "n", "i" }, "<C-D>", vim.diagnostic.open_float, { desc = "Line diagnostics" })
+  vim.keymap.set({ "n", "i" }, "<C-S-D>", "<cmd>Trouble diagnostics<cr><tab>", { desc = "Invoke Trouble" })
+  vim.keymap.set({ "n", "i" }, "<C-A>", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Code action" })
   vim.keymap.set({ "n", "i" }, "<C-S-L>", "<cmd>lua vim.lsp.codelens.run()<cr>", { desc = "Code action" })
 
   vim.keymap.set({ "n" }, "<C-S-F>", "<leader>sr", { desc = "Replace in files", remap = true })
