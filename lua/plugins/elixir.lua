@@ -3,37 +3,36 @@ if vim.g.vscode then
 end
 
 return {
-  { import = "lazyvim.plugins.extras.lang.elixir" },
+  -- { import = "lazyvim.plugins.extras.lang.elixir" },
 
-  -- {
-  -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   opts = function(_, opts)
-  --     vim.list_extend(opts.ensure_installed, {
-  --       "elixir",
-  --       "heex",
-  --       "eex",
-  --     })
-  --   end,
-  -- },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, {
+        "elixir",
+        "heex",
+        "eex",
+      })
+    end,
+  },
 
-  -- {
-  --   "williamboman/mason.nvim",
-  --   opts = function(_, opts)
-  --     vim.list_extend(opts.ensure_installed, {
-  --       "elixir-ls",
-  --       -- "lexical",
-  --     })
-  --     -- Disable autostart for elixirls
-  --     -- require("mason-lspconfig").setup_handlers({
-  --     --   ["elixirls"] = function()
-  --     --     require("lspconfig").elixirls.setup({
-  --     --       autostart = false,
-  --     --     })
-  --     --   end,
-  --     -- })
-  --   end,
-  -- },
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, {
+        "elixir-ls",
+        "lexical",
+      })
+      -- Disable autostart for elixirls
+      -- require("mason-lspconfig").setup_handlers({
+      --   ["elixirls"] = function()
+      --     require("lspconfig").elixirls.setup({
+      --       autostart = false,
+      --     })
+      --   end,
+      -- })
+    end,
+  },
 
   {
     "jfpedroza/neotest-elixir",
@@ -70,7 +69,7 @@ return {
         dap.configurations[language] = {
           {
             type = "mix_task",
-            name = "mix test",
+            name = "Generic Mix Test",
             task = "test",
             taskArgs = { "--trace" },
             request = "launch",

@@ -380,7 +380,7 @@ return {
               { id = "repl", size = 0.65, },
               { id = "scopes", size = 0.35, },
             },
-            position = "bottom", size = 10,
+            position = "bottom", size = 19,
           },
         },
       }

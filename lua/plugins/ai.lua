@@ -4,7 +4,7 @@ end
 
 return {
   -- Copilot
-  { import = "lazyvim.plugins.extras.coding.copilot" },
+  -- { import = "lazyvim.plugins.extras.coding.copilot" },
   -- { import = "lazyvim.plugins.extras.coding.copilot-chat" },
 
   -- Minuet
@@ -134,29 +134,51 @@ return {
     },
   },
 
+  -- {
+  --   "joshuavial/aider.nvim",
+  --   config = function()
+  --     require("aider").setup({
+  --       auto_manage_context = true,
+  --       default_bindings = true,
+  --     })
+  --   end,
+  --   keys = {
+  --     {
+  --       "oa",
+  --       function()
+  --         require("aider").AiderOpen()
+  --       end,
+  --       desc = "Aider Open",
+  --     },
+  --     {
+  --       "ob",
+  --       function()
+  --         require("aider").AiderBackground()
+  --       end,
+  --       desc = "Aider Background",
+  --     },
+  --   },
+  -- },
+
   {
-    "joshuavial/aider.nvim",
+    "supermaven-inc/supermaven-nvim",
     config = function()
-      require("aider").setup({
-        auto_manage_context = true,
-        default_bindings = true,
+      require("supermaven-nvim").setup({
+        disable_inline_completion = true,
       })
     end,
-    keys = {
-      {
-        "oa",
-        function()
-          require("aider").AiderOpen()
-        end,
-        desc = "Aider Open",
-      },
-      {
-        "ob",
-        function()
-          require("aider").AiderBackground()
-        end,
-        desc = "Aider Background",
-      },
-    },
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+      local cmp = require("cmp")
+      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
+        {
+          name = "supermaven",
+          group_index = 1,
+          priority = 100,
+        },
+      }))
+    end,
   },
 }
