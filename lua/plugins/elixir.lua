@@ -21,7 +21,7 @@ return {
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         "elixir-ls",
-        "lexical",
+        -- "lexical",
       })
       -- Disable autostart for elixirls
       -- require("mason-lspconfig").setup_handlers({
@@ -31,6 +31,23 @@ return {
       --     })
       --   end,
       -- })
+    end,
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    opts = function(_, opts)
+      opts.linters_by_ft = {
+        elixir = { "credo" },
+      }
+
+      opts.linters = {
+        credo = {
+          condition = function(ctx)
+            return vim.fs.find({ ".credo.exs" }, { path = ctx.filename, upward = true })[1]
+          end,
+        },
+      }
     end,
   },
 

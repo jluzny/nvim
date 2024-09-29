@@ -15,9 +15,14 @@ vim.keymap.set({ "n", "x" }, "D", '"_D', { desc = "Delete without copying to sys
 vim.keymap.set({ "n", "x" }, "c", '"_c', { desc = "Cut without copying to system clipboard", remap = false })
 vim.keymap.set({ "n", "x" }, "C", '"_C', { desc = "Cut without copying to system clipboard", remap = false })
 vim.keymap.set({ "n", "x" }, "X", "Vx", { desc = "Cut whole line to clipboard", remap = false })
+vim.keymap.set({ "n", "x" }, "<C-X>", "x", { desc = "Cut selection to clipboard", remap = false })
 vim.keymap.set({ "n", "x" }, "<C-S-C>", '"+y', { desc = "Copy to system clipboard", remap = true })
 vim.keymap.set({ "n", "x" }, "<C-S-A>", "gg<s-v><s-g>y", { desc = "Copy whole text to system clipboard", remap = true })
 vim.keymap.set({ "n" }, "<C-C>", "<cmd>close<cr>", { desc = "Close window", remap = true })
+vim.keymap.set({ "v", "x" }, "<C-c>", '"+y', { desc = "Copy to clipboard in visual mode", remap = false })
+vim.keymap.set({ "n", "v" }, "<C-v>", '"+P', { desc = "Paste from clipboard in normal mode", remap = false })
+vim.keymap.set("!", "<C-v>", "<C-R>+", { desc = "Paste from clipboard in insert and command mode", silent = false })
+vim.keymap.set("t", "<C-v>", '<Esc><Esc>"+Pi', { desc = "Paste from clipboard in terminal mode", remap = true })
 
 if not vim.g.vscode then
   vim.keymap.set({ "n", "i" }, "<C-Tab>", function()

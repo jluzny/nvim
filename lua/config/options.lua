@@ -20,3 +20,8 @@ if not vim.g.vscode then
 
   opt.equalalways = false
 end
+
+-- neovide
+if vim.g.neovide then
+  vim.g.neovide_fullscreen = true
+end

@@ -10,6 +10,8 @@ return {
   { import = "lazyvim.plugins.extras.dap.core" },
   { import = "lazyvim.plugins.extras.util.project" },
   { import = "lazyvim.plugins.extras.test.core" },
+  { import = "lazyvim.plugins.extras.ui.mini-animate" },
+  { import = "lazyvim.plugins.extras.editor.mini-diff" },
 
   {
     "akinsho/bufferline.nvim",
@@ -67,10 +69,6 @@ return {
       colorscheme = "catppuccin-mocha",
     },
   },
-
-  { "echasnovski/mini.pairs", enabled = false },
-  { "echasnovski/mini.animate", enabled = false },
-  { "echasnovski/mini.diff", version = false },
 
   {
     "rcarriga/nvim-notify",
@@ -376,8 +374,8 @@ return {
           -- },
           {
             elements = {
-              -- { id = "console", size = 0.6, },
-              { id = "repl", size = 0.65, },
+              { id = "console", size = 0.6, },
+              { id = "repl", size = 0.05, },
               { id = "scopes", size = 0.35, },
             },
             position = "bottom", size = 19,
