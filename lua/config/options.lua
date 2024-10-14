@@ -19,9 +19,12 @@ if not vim.g.vscode then
   opt.showbreak = "↪ "
 
   opt.equalalways = false
+
+  -- opt.guicursor = "n-v-c:block-blinkwait700-blinkon400-blinkoff250,i-ci-ve:ver25-blinkwait700-blinkon400-blinkoff250"
 end
 
 -- neovide
 if vim.g.neovide then
   vim.g.neovide_fullscreen = true
+  vim.o.guifont = "JetBrains Mono:h10.2"
 end

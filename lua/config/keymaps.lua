@@ -18,11 +18,16 @@ vim.keymap.set({ "n", "x" }, "X", "Vx", { desc = "Cut whole line to clipboard", 
 vim.keymap.set({ "n", "x" }, "<C-X>", "x", { desc = "Cut selection to clipboard", remap = false })
 vim.keymap.set({ "n", "x" }, "<C-S-C>", '"+y', { desc = "Copy to system clipboard", remap = true })
 vim.keymap.set({ "n", "x" }, "<C-S-A>", "gg<s-v><s-g>y", { desc = "Copy whole text to system clipboard", remap = true })
-vim.keymap.set({ "n" }, "<C-C>", "<cmd>close<cr>", { desc = "Close window", remap = true })
-vim.keymap.set({ "v", "x" }, "<C-c>", '"+y', { desc = "Copy to clipboard in visual mode", remap = false })
-vim.keymap.set({ "n", "v" }, "<C-v>", '"+P', { desc = "Paste from clipboard in normal mode", remap = false })
-vim.keymap.set("!", "<C-v>", "<C-R>+", { desc = "Paste from clipboard in insert and command mode", silent = false })
-vim.keymap.set("t", "<C-v>", '<Esc><Esc>"+Pi', { desc = "Paste from clipboard in terminal mode", remap = true })
+-- vim.keymap.set({ "n" }, "<C-C>", "<cmd>close<cr>", { desc = "Close window", remap = true })
+vim.keymap.set({ "v", "x" }, "<C-S-C>", '"+y', { desc = "Copy to clipboard in visual mode", remap = false })
+vim.keymap.set({ "n", "v" }, "<C-S-V>", '"+P', { desc = "Paste from clipboard in normal mode", remap = false })
+vim.keymap.set(
+  { "!" },
+  "<C-S-V>",
+  "<C-R>+",
+  { desc = "Paste from clipboard in insert and command mode", silent = false }
+)
+vim.keymap.set("t", "<C-S-V>", '<Esc><Esc>"+Pi', { desc = "Paste from clipboard in terminal mode", remap = true })
 
 if not vim.g.vscode then
   vim.keymap.set({ "n", "i" }, "<C-Tab>", function()
@@ -38,7 +43,7 @@ if not vim.g.vscode then
   vim.keymap.set({ "n" }, "<S-Tab>", "<cmd>wincmd W<cr>", { desc = "Switch window back", remap = false })
   vim.keymap.set({ "n" }, "<C-P>", "<C-O>", { desc = "Next change" })
   vim.keymap.set({ "n" }, "<C-N>", "<C-I>", { desc = "Previous change" })
-  vim.keymap.set({ "n" }, "<C-S-Q>", "<leader>bD", { desc = "Delete bufer", remap = true })
+  vim.keymap.set({ "n" }, "<C-C>", "<leader>bD", { desc = "Delete bufer", remap = true })
 
   vim.keymap.set({ "n", "i" }, "<C-D>", vim.diagnostic.open_float, { desc = "Line diagnostics" })
   vim.keymap.set({ "n", "i" }, "<C-S-D>", "<cmd>Trouble diagnostics<cr><tab>", { desc = "Invoke Trouble" })

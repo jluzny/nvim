@@ -59,10 +59,22 @@ return {
     },
   },
 
+  -- {
+  --   "nvim-neotest/neotest",
+  --   dependencies = {
+  --     "marilari88/neotest-vitest",
+  --   },
+  --   opts = {
+  --     adapters = {
+  --       ["neotest-vitest"] = {},
+  --     },
+  --   },
+  -- },
+
   {
     "nvim-neotest/neotest",
     dependencies = {
-      "markemmons/neotest-deno",
+      "MatrosMartz/neotest-deno",
     },
     opts = {
       adapters = {
@@ -71,26 +83,14 @@ return {
     },
   },
 
-  {
-    "typed-rocks/ts-worksheet-neovim",
-    opts = {
-      severity = vim.diagnostic.severity.WARN,
-    },
-    config = function(_, opts)
-      require("tsw").setup(opts)
-    end,
-  },
-
   -- {
-  --   "markemmons/neotest-deno",
-  -- },
-  --
-  -- {
-  --   "nvim-neotest/neotest",
-  --   optional = true,
-  --   dependencies = {
-  --     "neotest-deno",
+  --   "typed-rocks/ts-worksheet-neovim",
+  --   opts = {
+  --     severity = vim.diagnostic.severity.WARN,
   --   },
+  --   config = function(_, opts)
+  --     require("tsw").setup(opts)
+  --   end,
   -- },
 
   {
@@ -164,30 +164,18 @@ return {
             },
           },
 
-          -- {
-          --   type = "pwa-node",
-          --   request = "launch",
-          --   name = "Launch Bun",
-          --   cwd = vim.fn.getcwd(),
-          --   runtimeArgs = { "--inspect-wait" },
-          --   program = "${file}",
-          --   -- sourceMaps = true,
-          --   protocol = "inspector",
-          --   runtimeExecutable = "bun",
-          --   attachSimplePort = 6499,
-          -- },
-          -- {
-          --   type = "pwa-node",
-          --   request = "launch",
-          --   name = "Launch Deno",
-          --   cwd = vim.fn.getcwd(),
-          --   runtimeArgs = { "run", "--inspect-wait" },
-          --   program = "${file}",
-          --   -- sourceMaps = true,
-          --   -- protocol = "inspector",
-          --   runtimeExecutable = "deno",
-          --   attachSimplePort = 9229,
-          -- },
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch Bun",
+            cwd = vim.fn.getcwd(),
+            runtimeArgs = { "--inspect-wait=localhost:4000", "${file}" },
+            -- program = "${file}",
+            -- sourceMaps = true,
+            -- protocol = "inspector",
+            runtimeExecutable = "bun",
+            attachSimplePort = 4000,
+          },
         }
       end
     end,

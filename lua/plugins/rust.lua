@@ -69,6 +69,9 @@ return {
                 enable = true,
               },
             },
+            completion = {
+              postfix = { enable = false },
+            },
             -- Add clippy lints for Rust.
             checkOnSave = true,
             procMacro = {

@@ -10,7 +10,6 @@ return {
   { import = "lazyvim.plugins.extras.dap.core" },
   { import = "lazyvim.plugins.extras.util.project" },
   { import = "lazyvim.plugins.extras.test.core" },
-  { import = "lazyvim.plugins.extras.ui.mini-animate" },
   { import = "lazyvim.plugins.extras.editor.mini-diff" },
 
   {
@@ -130,7 +129,19 @@ return {
       local peepsight = require("peepsight")
       peepsight.setup({
         -- Zig
-        "Decl",
+        -- "Decl",
+        -- Rust
+        "function_item",
+        "struct_item",
+        "enum_item",
+        "impl_item",
+        "trait_item",
+        "mod_item",
+        -- "macro_invocation",
+        -- "macro",
+        -- "macro_definition",
+        "const_item",
+        "static_item",
       })
       peepsight.enable()
     end,
@@ -374,8 +385,8 @@ return {
           -- },
           {
             elements = {
-              { id = "console", size = 0.6, },
-              { id = "repl", size = 0.05, },
+              -- { id = "console", size = 0.6, },
+              { id = "repl", size = 0.65, },
               { id = "scopes", size = 0.35, },
             },
             position = "bottom", size = 19,
