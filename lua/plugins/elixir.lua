@@ -86,23 +86,22 @@ return {
         dap.configurations[language] = {
           {
             type = "mix_task",
-            name = "Generic Mix Test",
+            name = "Generic Test",
             task = "test",
             taskArgs = { "--trace" },
             request = "launch",
             exitAfterTaskReturns = false,
             debugAutoInterpretAllModules = false,
-            startApps = true,
+            startApps = false,
             projectDir = "${workspaceFolder}",
             requireFiles = {
               "test/**/test_helper.exs",
               "test/**/*_test.exs",
-              "lib/**/*.ex",
             },
           },
           -- {
           --   type = "mix_task",
-          --   name = "mix phx.server",
+          --   name = "Generic Phx.server",
           --   task = "phx.server",
           --   -- taskArgs = { "--trace", "${file}" },
           --   -- exitAfterTaskReturns = false,
