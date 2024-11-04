@@ -76,8 +76,8 @@ return {
       if not dap.adapters["mix_task"] then
         dap.adapters["mix_task"] = {
           type = "executable",
-          command = vim.fn.stdpath("config") .. "/lua/plugins/elixir_debug_adapter.sh",
-          -- command = vim.fn.stdpath("data") .. "/mason/bin/elixir-ls-debugger",
+          -- command = vim.fn.stdpath("config") .. "/lua/plugins/elixir_debug_adapter.sh",
+          command = vim.fn.stdpath("data") .. "/mason/bin/elixir-ls-debugger",
           args = {},
         }
       end

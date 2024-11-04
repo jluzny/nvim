@@ -11,25 +11,23 @@ return {
     })
   end,
 
-  -- Extend auto completion
+  -- LSP for Cargo.toml
   {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      {
-        "Saecki/crates.nvim",
-        event = { "BufRead Cargo.toml" },
-        opts = {
-          completion = {
-            cmp = { enabled = true },
-          },
+    "Saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    opts = {
+      completion = {
+        crates = {
+          enabled = true,
         },
       },
+      lsp = {
+        enabled = true,
+        actions = true,
+        completion = true,
+        hover = true,
+      },
     },
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      opts.sources = opts.sources or {}
-      table.insert(opts.sources, { name = "crates" })
-    end,
   },
 
   -- Add Rust & related to treesitter
@@ -102,21 +100,7 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        taplo = {
-          keys = {
-            {
-              "K",
-              function()
-                if vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
-                  require("crates").show_popup()
-                else
-                  vim.lsp.buf.hover()
-                end
-              end,
-              desc = "Show Crate Documentation",
-            },
-          },
-        },
+        rust_analyzer = { enabled = false },
       },
     },
   },
@@ -131,20 +115,3 @@ return {
     },
   },
 }
-
---
---   -- function()
---   -- Rust dioxus workaround
---   -- local rust_group = vim.api.nvim_create_augroup("rust_group", {})
---   -- vim.api.nvim_create_autocmd({ "FileType" }, {
---   --   pattern = "rust",
---   --   callback = function()
---   --     vim.opt_local.backupcopy = "yes"
---   --   end,
---   --   group = rust_group,
---   -- })
---
---   -- vim.o.makeprg = "cargo build %"
---   -- vim.keymap.set({ "n", "i" }, "<C-S>", "<cmd>wa | make!<cr>", { desc = "Save and make the file" })
---   -- end,
--- },

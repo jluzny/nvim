@@ -137,26 +137,25 @@ return {
         "impl_item",
         "trait_item",
         "mod_item",
-        -- "macro_invocation",
-        -- "macro",
-        -- "macro_definition",
         "const_item",
         "static_item",
+        -- Elixir
+        "do_block",
       })
       peepsight.enable()
     end,
   },
 
-  -- {
-  --   "nvim-treesitter/playground",
-  --   enabled = true,
-  --   event = "VeryLazy",
-  --   config = function()
-  --     vim.keymap.set("n", "<leader>tp", function()
-  --       require("nvim-treesitter-playground.hl-info").show_hl_captures()
-  --     end)
-  --   end,
-  -- },
+  {
+    "nvim-treesitter/playground",
+    enabled = true,
+    event = "VeryLazy",
+    config = function()
+      vim.keymap.set("n", "<leader>tp", function()
+        require("nvim-treesitter-playground.hl-info").show_hl_captures()
+      end)
+    end,
+  },
 
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -385,9 +384,9 @@ return {
           -- },
           {
             elements = {
-              -- { id = "console", size = 0.6, },
-              { id = "repl", size = 0.65, },
-              { id = "scopes", size = 0.35, },
+              { id = "console", size = 0.5, },
+              { id = "repl", size = 0.05, },
+              { id = "scopes", size = 0.45, },
             },
             position = "bottom", size = 19,
           },
