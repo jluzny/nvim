@@ -18,9 +18,14 @@ if not vim.g.vscode then
   opt.linebreak = true
   opt.showbreak = "↪ "
 
+  opt.relativenumber = false
+  opt.number = false
+
   opt.equalalways = false
 
   -- opt.guicursor = "n-v-c:block-blinkwait700-blinkon400-blinkoff250,i-ci-ve:ver25-blinkwait700-blinkon400-blinkoff250"
+
+  vim.g.lazyvim_blink_main = true
 end
 
 -- neovide

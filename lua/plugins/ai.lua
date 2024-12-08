@@ -6,55 +6,57 @@ return {
   -- Copilot
   -- { import = "lazyvim.plugins.extras.coding.copilot" },
   -- { import = "lazyvim.plugins.extras.coding.copilot-chat" },
+  { import = "lazyvim.plugins.extras.ai.supermaven" },
 
   -- Minuet
-  {
-    "milanglacier/minuet-ai.nvim",
-    config = function()
-      require("minuet").setup({
-        provider = "claude",
-      })
-    end,
-  },
-  { "nvim-lua/plenary.nvim" },
-  {
-    "nvim-cmp",
-    opts = function(_, opts)
-      -- if you wish to use autocomplete
-      -- table.insert(opts.sources, 1, {
-      --   name = "minuet",
-      --   group_index = 1,
-      --   priority = 100,
-      -- })
-
-      opts.performance = {
-        -- It is recommended to increase the timeout duration due to
-        -- the typically slower response speed of LLMs compared to
-        -- other completion sources. This is not needed when you only
-        -- need manual completion.
-        -- fetching_timeout = 2000,
-      }
-
-      opts.mapping = vim.tbl_deep_extend("force", opts.mapping or {}, {
-        -- if you wish to use manual complete
-        ["<S-Space>"] = require("minuet").make_cmp_map(),
-        -- You don't need to worry about <CR> delay because lazyvim handles this situation for you.
-        ["<CR>"] = nil,
-      })
-    end,
-  },
+  -- {
+  --   "milanglacier/minuet-ai.nvim",
+  --   config = function()
+  --     require("minuet").setup({
+  --       provider = "claude",
+  --       provider_options = {
+  --         model = "claude-3-5-sonnet-20241022",
+  --       },
+  --     })
+  --   end,
+  -- },
+  -- { "nvim-lua/plenary.nvim" },
+  -- {
+  --   "nvim-cmp",
+  --   opts = function(_, opts)
+  --     -- if you wish to use autocomplete
+  --     -- table.insert(opts.sources, 1, {
+  --     --   name = "minuet",
+  --     --   group_index = 1,
+  --     --   priority = 100,
+  --     -- })
+  --
+  --     opts.performance = {
+  --       -- It is recommended to increase the timeout duration due to
+  --       -- the typically slower response speed of LLMs compared to
+  --       -- other completion sources. This is not needed when you only
+  --       -- need manual completion.
+  --       -- fetching_timeout = 2000,
+  --     }
+  --
+  --     opts.mapping = vim.tbl_deep_extend("force", opts.mapping or {}, {
+  --       -- if you wish to use manual complete
+  --       ["<S-Space>"] = require("minuet").make_cmp_map(),
+  --       -- You don't need to worry about <CR> delay because lazyvim handles this situation for you.
+  --       ["<CR>"] = nil,
+  --     })
+  --   end,
+  -- },
 
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "hrsh7th/nvim-cmp", -- Optional: For activating slash commands and variables in the chat buffer
-      "nvim-telescope/telescope.nvim", -- Optional: For working with files with slash commands
-      {
-        "stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
-        opts = {},
-      },
+      "hrsh7th/nvim-cmp", -- Optional: For using slash commands and variables in the chat buffer
+      "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
+      { "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } }, -- Optional: For prettier markdown rendering
+      { "stevearc/dressing.nvim", opts = {} }, -- Optional: Improves `vim.ui.select`
     },
     config = function()
       require("codecompanion").setup({
@@ -69,12 +71,6 @@ return {
             adapter = "anthropic",
           },
         },
-        inline = {
-          -- If the inline prompt creates a new buffer, how should we display this?
-          diff = {
-            diff_method = "mini_diff", -- default|mini_diff
-          },
-        },
         display = {
           chat = {
             window = {
@@ -82,6 +78,9 @@ return {
               width = 0.35,
               relative = "editor",
             },
+          },
+          diff = {
+            provider = "mini_diff",
           },
         },
       })
@@ -100,6 +99,7 @@ return {
     build = "make",
     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
+      "nvim-treesitter/nvim-treesitter",
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
@@ -160,25 +160,17 @@ return {
   --   },
   -- },
 
-  {
-    "supermaven-inc/supermaven-nvim",
-    config = function()
-      require("supermaven-nvim").setup({
-        disable_inline_completion = true,
-      })
-    end,
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
-        {
-          name = "supermaven",
-          group_index = 1,
-          priority = 100,
-        },
-      }))
-    end,
-  },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   opts = function(_, opts)
+  --     local cmp = require("cmp")
+  --     opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
+  --       {
+  --         name = "supermaven",
+  --         group_index = 1,
+  --         priority = 100,
+  --       },
+  --     }))
+  --   end,
+  -- },
 }

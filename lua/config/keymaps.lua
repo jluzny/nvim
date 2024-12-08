@@ -9,6 +9,7 @@ for _, mode in pairs({ "n", "v", "x" }) do
 end
 
 vim.keymap.set({ "n", "x" }, "f", "e", { desc = "Add <f> as antoher key to move word forward", remap = true })
+vim.keymap.set({ "n", "x" }, "<C-s>", "<cmd>wa<cr>", { desc = "Save all files", remap = false })
 
 vim.keymap.set({ "n", "x" }, "d", '"_d', { desc = "Delete without copying to system clipboard", remap = false })
 vim.keymap.set({ "n", "x" }, "D", '"_D', { desc = "Delete without copying to system clipboard", remap = false })

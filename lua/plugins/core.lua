@@ -12,6 +12,24 @@ return {
   { import = "lazyvim.plugins.extras.test.core" },
   { import = "lazyvim.plugins.extras.editor.mini-diff" },
 
+  -- blink support
+  { import = "lazyvim.plugins.extras.coding.blink" },
+  -- {
+  --   "saghen/blink.cmp",
+  --   optional = true,
+  --   opts = {
+  --     windows = { ghost_text = { enabled = true } },
+  --   },
+  --   dependencies = {
+  --     {
+  --       "supermaven-nvim",
+  --       opts = {
+  --         disable_inline_completion = false,
+  --       },
+  --     },
+  --   },
+  -- },
+
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
@@ -70,12 +88,22 @@ return {
   },
 
   {
-    "rcarriga/nvim-notify",
+    "folke/snacks.nvim",
     opts = {
-      top_down = false,
-      render = "minimal",
+      notifier = {
+        top_down = false,
+        render = "minimal",
+      },
     },
   },
+
+  -- {
+  --   "rcarriga/nvim-notify",
+  --   opts = {
+  --     top_down = false,
+  --     render = "minimal",
+  --   },
+  -- },
 
   {
     "folke/noice.nvim",
@@ -384,8 +412,8 @@ return {
           -- },
           {
             elements = {
-              { id = "console", size = 0.5, },
-              { id = "repl", size = 0.05, },
+              -- { id = "console", size = 0.5, },
+              { id = "repl", size = 0.65, },
               { id = "scopes", size = 0.45, },
             },
             position = "bottom", size = 19,
@@ -421,63 +449,4 @@ return {
       -- dap.defaults.fallback.force_external_terminal = true
     end,
   },
-
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   version = false, -- last release is way too old
-  --   event = "InsertEnter",
-  --   dependencies = {
-  --     "hrsh7th/cmp-nvim-lsp",
-  --     "hrsh7th/cmp-buffer",
-  --     "hrsh7th/cmp-path",
-  --   },
-  --   opts = function()
-  --     vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
-  --     local cmp = require("cmp")
-  --     local defaults = require("cmp.config.default")()
-  --     return {
-  --       completion = {
-  --         completeopt = "menu,menuone,noinsert,noselect",
-  --       },
-  --       mapping = cmp.mapping.preset.insert({
-  --         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-  --         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-  --         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-  --         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-  --         ["<C-Space>"] = cmp.mapping.complete(),
-  --         ["<C-e>"] = cmp.mapping.abort(),
-  --         ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  --         ["<C-CR>"] = cmp.mapping.confirm({
-  --           behavior = cmp.ConfirmBehavior.Replace,
-  --           select = true,
-  --         }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  --         ["<S-CR>"] = function(fallback)
-  --           cmp.abort()
-  --           fallback()
-  --         end,
-  --       }),
-  --       sources = cmp.config.sources({
-  --         { name = "nvim_lsp" },
-  --         { name = "path" },
-  --       }, {
-  --         { name = "buffer" },
-  --       }),
-  --       formatting = {
-  --         format = function(_, item)
-  --           local icons = require("lazyvim.config").icons.kinds
-  --           if icons[item.kind] then
-  --             item.kind = icons[item.kind] .. item.kind
-  --           end
-  --           return item
-  --         end,
-  --       },
-  --       experimental = {
-  --         ghost_text = {
-  --           hl_group = "CmpGhostText",
-  --         },
-  --       },
-  --       sorting = defaults.sorting,
-  --     }
-  --   end,
-  -- },
 }
