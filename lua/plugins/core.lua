@@ -6,25 +6,28 @@ end
 
 return {
   -- eneble plugins and extras
-  { import = "lazyvim.plugins.extras.lsp.none-ls" },
+  -- { import = "lazyvim.plugins.extras.lsp.none-ls" },
   { import = "lazyvim.plugins.extras.dap.core" },
   { import = "lazyvim.plugins.extras.util.project" },
   { import = "lazyvim.plugins.extras.test.core" },
   { import = "lazyvim.plugins.extras.editor.mini-diff" },
 
   -- blink support
-  { import = "lazyvim.plugins.extras.coding.blink" },
+  -- { import = "lazyvim.plugins.extras.coding.blink" },
   -- {
   --   "saghen/blink.cmp",
   --   optional = true,
   --   opts = {
-  --     windows = { ghost_text = { enabled = true } },
-  --   },
-  --   dependencies = {
-  --     {
-  --       "supermaven-nvim",
-  --       opts = {
-  --         disable_inline_completion = false,
+  --     sources = {
+  --       compat = {},
+  --       default = { "lsp", "path", "snippets", "buffer", "codecompanion" },
+  --       cmdline = {},
+  --       providers = {
+  --         codecompanion = {
+  --           name = "CodeCompanion",
+  --           module = "codecompanion.providers.completion.blink",
+  --           enabled = true,
+  --         },
   --       },
   --     },
   --   },
@@ -51,8 +54,8 @@ return {
 
   {
     "catppuccin/nvim",
+    lazy = true,
     name = "catppuccin",
-    priority = 1000,
     config = function()
       require("catppuccin").setup({
         custom_highlights = function(colors)
@@ -73,11 +76,19 @@ return {
 
   -- {
   --   "folke/tokyonight.nvim",
-  --   name = "tokyonight",
-  --   priority = 1000,
+  --   lazy = true,
   --   opts = {
-  --     colorscheme = "night",
+  --     -- colorscheme = "night",
+  --     style = "night",
   --   },
+  --   config = function()
+  --     require("tokyonight").setup({
+  --       style = "night",
+  --       on_colors = function(colors)
+  --         colors.bg = "#1d1d1d"
+  --       end,
+  --     })
+  --   end,
   -- },
 
   {

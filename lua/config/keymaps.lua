@@ -31,9 +31,12 @@ vim.keymap.set(
 vim.keymap.set("t", "<C-S-V>", '<Esc><Esc>"+Pi', { desc = "Paste from clipboard in terminal mode", remap = true })
 
 if not vim.g.vscode then
-  vim.keymap.set({ "n", "i" }, "<C-Tab>", function()
-    require("telescope.builtin").buffers({ sort_mru = true, ignore_current_buffer = true })
-  end, { desc = "Find open buffers" })
+  vim.keymap.set(
+    { "n", "i" },
+    "<C-Tab>",
+    "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>",
+    { desc = "Find open buffers" }
+  )
 
   vim.keymap.set({ "n", "i" }, "<C-S-P>", "<leader>sc", { desc = "Command history", remap = true })
   vim.keymap.set({ "n" }, "<F6>", "@:", { desc = "Rerun last command", remap = true, silent = true })
