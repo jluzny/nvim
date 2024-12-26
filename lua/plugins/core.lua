@@ -358,9 +358,9 @@ return {
     "Weissle/persistent-breakpoints.nvim",
     event = "VeryLazy",
     config = function()
-      require("persistent-breakpoints").setup({
-        load_breakpoints_event = { "BufReadPost" },
-      })
+      -- require("persistent-breakpoints").setup({
+      --   load_breakpoints_event = { "BufReadPost" },
+      -- })
       local dap = require("dap")
       local dapui = require("dapui")
 
@@ -374,8 +374,8 @@ return {
       end)
       vim.keymap.set("n", "<F4>", require("neotest").watch.watch)
       -- vim.keymap.set("n", "<F5>", function() vim.cmd("wa") require("neotest").run.run(vim.uv.cwd()) end)
-      -- vim.keymap.set("n", "<F9>", require("dap").toggle_breakpoint)
-      vim.keymap.set("n", "<F7>", require("persistent-breakpoints.api").toggle_breakpoint)
+      vim.keymap.set("n", "<F7>", require("dap").toggle_breakpoint)
+      -- vim.keymap.set("n", "<F7>", require("persistent-breakpoints.api").toggle_breakpoint)
       vim.keymap.set("n", "<F8>", function()
         if dap.session() then
           dap.continue()
