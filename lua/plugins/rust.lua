@@ -53,7 +53,7 @@ return {
           program = function()
             return vim.fn.input(
               "Path to executable: ",
-              vim.fn.getcwd() .. "/target/x86_64-unknown-linux-gnu/debug/hass-hvac-control-async",
+              vim.fn.getcwd() .. "/target/x86_64-unknown-linux-gnu/debug/hass-hvac-control",
               "file"
             )
           end,
