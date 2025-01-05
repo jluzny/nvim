@@ -49,6 +49,8 @@ if not vim.g.vscode then
   vim.keymap.set({ "n" }, "<C-N>", "<C-I>", { desc = "Previous change" })
   vim.keymap.set({ "n" }, "<C-C>", "<leader>bD", { desc = "Delete bufer", remap = true })
 
+  vim.keymap.set({ "n", "i" }, "<C-G>", "<leader>ss", { desc = "Goto symbols (file)", remap = true })
+  vim.keymap.set({ "n", "i" }, "<C-S-G>", "<leader>sS", { desc = "Goto symbols (workspace)", remap = true })
   vim.keymap.set({ "n", "i" }, "<C-D>", vim.diagnostic.open_float, { desc = "Line diagnostics" })
   vim.keymap.set({ "n", "i" }, "<C-S-D>", "<cmd>Trouble diagnostics<cr><tab>", { desc = "Invoke Trouble" })
   vim.keymap.set({ "n", "i" }, "<C-A>", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Code action" })
