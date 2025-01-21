@@ -45,7 +45,7 @@ return {
 
       dap.configurations.rust = {
         {
-          name = "Debug Rust (gdb)",
+          name = "Generic Debug Rust (gdb)",
           type = "gdb",
           request = "launch",
           externalConsole = "true",
@@ -53,7 +53,7 @@ return {
           program = function()
             return vim.fn.input(
               "Path to executable: ",
-              vim.fn.getcwd() .. "/target/x86_64-unknown-linux-gnu/debug/hass-hvac-control",
+              vim.fn.getcwd() .. "/target/x86_64-unknown-linux-gnu/debug",
               "file"
             )
           end,
@@ -62,5 +62,15 @@ return {
         },
       }
     end,
+  },
+
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    opts = {
+      adapters = {
+        ["rustaceanvim.neotest"] = {},
+      },
+    },
   },
 }

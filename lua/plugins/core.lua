@@ -6,7 +6,6 @@ end
 
 return {
   -- eneble plugins and extras
-  -- { import = "lazyvim.plugins.extras.lsp.none-ls" },
   { import = "lazyvim.plugins.extras.dap.core" },
   { import = "lazyvim.plugins.extras.util.project" },
   { import = "lazyvim.plugins.extras.test.core" },
@@ -108,14 +107,6 @@ return {
     },
   },
 
-  -- {
-  --   "rcarriga/nvim-notify",
-  --   opts = {
-  --     top_down = false,
-  --     render = "minimal",
-  --   },
-  -- },
-
   {
     "folke/noice.nvim",
     opts = function(_, opts)
@@ -136,7 +127,7 @@ return {
             popupmenu = {
               relative = "editor",
               position = {
-                row = 23,
+                row = "50%",
                 col = "50%",
               },
               size = {
