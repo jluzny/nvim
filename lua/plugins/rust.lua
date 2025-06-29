@@ -3,10 +3,11 @@ if vim.g.vscode then
 end
 
 return {
-  { import = "lazyvim.plugins.extras.lang.rust" },
+  -- { import = "lazyvim.plugins.extras.lang.rust" },
 
   {
     "mrcjkb/rustaceanvim",
+    version = "6.2",
     opts = function(_, opts)
       opts = opts or {}
       local local_opts = opts

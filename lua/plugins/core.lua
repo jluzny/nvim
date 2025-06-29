@@ -11,26 +11,30 @@ return {
   { import = "lazyvim.plugins.extras.test.core" },
   { import = "lazyvim.plugins.extras.editor.mini-diff" },
 
-  -- blink support
-  -- { import = "lazyvim.plugins.extras.coding.blink" },
-  -- {
-  --   "saghen/blink.cmp",
-  --   optional = true,
-  --   opts = {
-  --     sources = {
-  --       compat = {},
-  --       default = { "lsp", "path", "snippets", "buffer", "codecompanion" },
-  --       cmdline = {},
-  --       providers = {
-  --         codecompanion = {
-  --           name = "CodeCompanion",
-  --           module = "codecompanion.providers.completion.blink",
-  --           enabled = true,
-  --         },
-  --       },
-  --     },
-  --   },
-  -- },
+  --  blink support
+  {
+    "saghen/blink.cmp",
+    optional = true,
+    opts = {
+      sources = {
+        compat = {},
+        default = { "lsp", "path", "snippets", "buffer", "codecompanion" },
+        providers = {
+          codecompanion = {
+            name = "CodeCompanion",
+            module = "codecompanion.providers.completion.blink",
+            enabled = true,
+          },
+          -- minuet = {
+          --   name = "minuet",
+          --   module = "minuet.blink",
+          --   enabled = true,
+          --   score_offset = 8, -- Gives minuet higher priority among suggestions
+          -- },
+        },
+      },
+    },
+  },
 
   {
     "akinsho/bufferline.nvim",

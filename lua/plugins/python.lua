@@ -1,5 +1,9 @@
-if true or vim.g.vscode then
+if vim.g.vscode then
   return {}
+else
+  return {
+    import = "lazyvim.plugins.extras.lang.python",
+  }
 end
 
 return {

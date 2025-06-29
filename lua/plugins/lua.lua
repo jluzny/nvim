@@ -3,5 +3,5 @@ if true or vim.g.vscode then
 end
 
 return {
-  { import = "lazyvim.plugins.extras.dap.nlua" },
+  -- { import = "lazyvim.plugins.extras.dap.nlua" },
 }

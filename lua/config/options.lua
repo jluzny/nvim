@@ -26,8 +26,9 @@ if not vim.g.vscode then
   -- opt.guicursor = "n-v-c:block-blinkwait700-blinkon400-blinkoff250,i-ci-ve:ver25-blinkwait700-blinkon400-blinkoff250"
 
   -- lazyvim
-  vim.g.lazyvim_blink_main = true
+  vim.g.lazyvim_blink_main = false
   vim.g.lazyvim_picker = "snacks"
+  vim.g.lazyvim_check_order = false
 end
 
 -- neovide
