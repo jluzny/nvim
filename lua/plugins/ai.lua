@@ -6,8 +6,8 @@ return {
   -- Copilot
   -- { import = "lazyvim.plugins.extras.ai.supermaven" },
   -- { "augmentcode/augment.vim" },
-  { import = "lazyvim.plugins.extras.ai.copilot" },
-  { import = "lazyvim.plugins.extras.ai.copilot-chat" },
+  -- { import = "lazyvim.plugins.extras.ai.copilot" },
+  -- { import = "lazyvim.plugins.extras.ai.copilot-chat" },
 
   {
     "CopilotC-Nvim/CopilotChat.nvim",

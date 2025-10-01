@@ -2,7 +2,7 @@ if vim.g.vscode then
   return {}
 else
   return {
-    import = "lazyvim.plugins.extras.lang.python",
+    -- import = "lazyvim.plugins.extras.lang.python",
   }
 end
 

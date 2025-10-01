@@ -156,40 +156,41 @@ return {
     end,
   },
 
-  {
-    "koenverburg/peepsight.nvim",
-    event = "VeryLazy",
-    config = function()
-      local peepsight = require("peepsight")
-      peepsight.setup({
-        -- Zig
-        -- "Decl",
-        -- Rust
-        "function_item",
-        "struct_item",
-        "enum_item",
-        "impl_item",
-        "trait_item",
-        "mod_item",
-        "const_item",
-        "static_item",
-        -- Elixir
-        "do_block",
-      })
-      peepsight.enable()
-    end,
-  },
+  -- FIXME after new nvim-treesitter
+  -- {
+  --   "koenverburg/peepsight.nvim",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     local peepsight = require("peepsight")
+  --     peepsight.setup({
+  --       -- Zig
+  --       -- "Decl",
+  --       -- Rust
+  --       "function_item",
+  --       "struct_item",
+  --       "enum_item",
+  --       "impl_item",
+  --       "trait_item",
+  --       "mod_item",
+  --       "const_item",
+  --       "static_item",
+  --       -- Elixir
+  --       "do_block",
+  --     })
+  --     peepsight.enable()
+  --   end,
+  -- },
 
-  {
-    "nvim-treesitter/playground",
-    enabled = true,
-    event = "VeryLazy",
-    config = function()
-      vim.keymap.set("n", "<leader>tp", function()
-        require("nvim-treesitter-playground.hl-info").show_hl_captures()
-      end)
-    end,
-  },
+  -- {
+  --   "nvim-treesitter/playground",
+  --   enabled = true,
+  --   event = "VeryLazy",
+  --   config = function()
+  --     vim.keymap.set("n", "<leader>tp", function()
+  --       require("nvim-treesitter-playground.hl-info").show_hl_captures()
+  --     end)
+  --   end,
+  -- },
 
   {
     "nvim-neo-tree/neo-tree.nvim",
